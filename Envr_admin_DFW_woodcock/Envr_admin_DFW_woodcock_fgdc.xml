@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+	<idinfo>
+		<citation>
+			<citeinfo>
+				<origin>Office of Fish and Wildlife Information Systems, New Jersey Department of Environmenal Protection (NJDEP), Division of Fish and Wildlife (DFW), Office of Fish and Wildlife Information Systems</origin>
+				<pubdate>20200901</pubdate>
+				<title>Woodcock Hunting Zones in New Jersey, Edition 20220815 (Envr_admin_DFW_woodcock)</title>
+				<geoform>vector digital data</geoform>
+			</citeinfo>
+		</citation>
+		<descript>
+			<abstract>The NJ Division of Fish &amp; Wildlife (DFW), Atlantic Flyway Council, and US Fish and Wildlife Service cooperatively manage migratory game bird hunting seasons. These zones delineate hunting areas for woodcock in New Jersey.</abstract>
+			<purpose>This data can be used to locate and identify woodcock hunting location information.</purpose>
+			<supplinf>For information related to Woodcock Zones and Zone Descriptions, please go to: https://www.njfishandwildlife.com/pdf/huntzones/woodcockzones.pdf.</supplinf>
+		</descript>
+		<timeperd>
+			<timeinfo>
+				<sngdate>
+					<caldate>20200901</caldate>
+				</sngdate>
+			</timeinfo>
+			<current>Publication date</current>
+		</timeperd>
+		<status>
+			<progress>Complete</progress>
+			<update>As needed</update>
+		</status>
+		<spdom>
+			<bounding>
+				<westbc>-75.587089</westbc>
+				<eastbc>-73.899178</eastbc>
+				<northbc>41.357813</northbc>
+				<southbc>38.924577</southbc>
+			</bounding>
+		</spdom>
+		<keywords>
+			<theme>
+				<themekt>None</themekt>
+				<themekey>permits</themekey>
+				<themekey>population</themekey>
+				<themekey>wildlife</themekey>
+				<themekey>hunting zones</themekey>
+				<themekey>woodcock</themekey>
+				<themekey>regulation</themekey>
+				<themekey>units</themekey>
+				<themekey>boundaries</themekey>
+				<themekey>management</themekey>
+				<themekey>hunting</themekey>
+				<themekey>woodcock hunting zones</themekey>
+				<themekey>public</themekey>
+				<themekey>zones</themekey>
+				<themekey>Envr_admin_DFW_woodcock</themekey>
+			</theme>
+			<theme>
+				<themekt>ISO 19115 Topic Categories</themekt>
+				<themekey>environment</themekey>
+			</theme>
+			<place>
+				<placekt>None</placekt>
+				<placekey>New Jersey</placekey>
+			</place>
+		</keywords>
+		<accconst>None</accconst>
+		<useconst>This data set is not survey data and must not be used as survey data. New Jersey Department of Environmental Protection (NJDEP) Data Distribution Agreement. The data provided herein are distributed subject to the following conditions and restrictions: NJDEP assumes no responsibility to maintain them in any manner or form and disclaims any duty or obligation to either maintain availability of or to update the data. Terms of Agreement 1. All data is provided, as is, without any representation or warranty of any kind, implied, expressed or statutory including, but not limited to, the warranties of non-infringement of third party rights, title, merchantability or fitness for a particular use, freedom from computer virus nor are any such warranties to be implied with respect to the digital data layers furnished hereunder. User is responsible for understanding the accuracy limitations of all digital data layers provided herein, as documented in the accompanying cross-reference files (see SUPPLEMENTAL INFORMATION). Any reproduction or manipulation of the above data must ensure that the coordinate reference system remains intact. 2. Digital data received from the NJDEP may not be reproduced or redistributed without all the metadata provided. 3. Any maps, publications, reports, or other documents produced as a result of this project that utilize this digital data will credit the NJDEP's Geographic Information System (GIS) as the source of the data with the following credit/disclaimer: "This (map/publication/report) was developed using New Jersey Department of Environmental Protection Geographic Information System digital data, but this secondary product has not been verified by NJDEP and is not state-authorized or endorsed." 4. NJDEP makes no warranty that digital data are free of Copyright or Trademark claims or other restrictions or limitations on free use or display. Making a copy of this data may be subject to the copyright of trademark laws. Acknowledgement of the data set provider, NJ Office of Information Technology, Office of Geographic Information Systems (NJOIT - OGIS), would be appreciated for maps, data or other products derived from this data set. The State of New Jersey makes great effort to provide secure, accurate, and complete data and metadata. However, portions of the data and metadata may be incorrect or not current. Any errors or omissions should be reported for investigation. The State of New Jersey, its officers, employees or agents shall not be liable for damages or losses of any kind arising out of or in connection with the use or performance of data and metadata, including but not limited to, damages or losses caused by reliance upon the accuracy or timeliness of any such data and metadata, or damages incurred from the viewing, distributing, or copying of those materials. The data and metadata are provided "as is." No warranty of any kind, implied, expressed, or statutory, including but not limited to the warranties of non-infringement of third party rights, title, merchantability, fitness for a particular purpose, and freedom from computer virus, is given with respect to the data and metadata, or its hyperlinks to other Internet resources. The State disclaims any duty or obligation either to maintain availability of or to update the data and metadata.</useconst>
+		<ptcontac>
+			<cntinfo>
+				<cntorgp>
+					<cntorg>New Jersey Department of Environmental Protection (NJDEP), Division of Fish and Wildlife (DFW), Office of Fish and Wildlife Information Systems.</cntorg>
+					<cntper>Office of Fish and Wildlife Information Systems</cntper>
+				</cntorgp>
+				<cntaddr>
+					<addrtype>mailing and physical</addrtype>
+					<address>1 Eldridge Road</address>
+					<city>Upper Freehold Township</city>
+					<state>NJ</state>
+					<postal>08691</postal>
+				</cntaddr>
+				<cntvoice>(609) 223-6060</cntvoice>
+				<cntemail>DFWGIS@dep.nj.gov</cntemail>
+			</cntinfo>
+		</ptcontac>
+		<native>Version 6.2 (Build 9200) ; Esri ArcGIS 10.6.1.9270</native>
+	</idinfo>
+	<dataqual>
+		<logic>Attribute accuracy was checked manually for each attribute field. A topology check was performed to remove gaps and overlaps and to repair geometry.</logic>
+		<complete>No known omissions.</complete>
+		<lineage>
+			<srcinfo>
+				<srccite>
+					<citeinfo>
+						<origin>NJ Office of Information Technology (NJOIT), Office of Geographic Information Systems (OGIS)</origin>
+						<pubdate>20160210</pubdate>
+						<title>New Jersey 2015 Orthophotography</title>
+					</citeinfo>
+				</srccite>
+				<srcscale>2400</srcscale>
+				<typesrc>None</typesrc>
+				<srctime>
+					<timeinfo>
+						<sngdate>
+							<caldate>20160210</caldate>
+						</sngdate>
+					</timeinfo>
+					<srccurr>ground condition</srccurr>
+				</srctime>
+				<srccitea>2015 Imagery</srccitea>
+				<srccontr>Used as base maps to rectify boundaries.</srccontr>
+			</srcinfo>
+			<srcinfo>
+				<srccite>
+					<citeinfo>
+						<origin>Fish and Game Council, NJDEP</origin>
+						<pubdate>20170905</pubdate>
+						<title>2017-18 Game Code; N.J.A.C. 7:25-5 pursuant to N.J.S.A. 13:1B-34</title>
+					</citeinfo>
+				</srccite>
+				<typesrc>None</typesrc>
+				<srctime>
+					<timeinfo>
+						<sngdate>
+							<caldate>20170905</caldate>
+						</sngdate>
+					</timeinfo>
+					<srccurr>ground condition</srccurr>
+				</srctime>
+				<srccitea>2017-18 Game Code; N.J.A.C. 7:25-5 pursuant to N.J.S.A. 13:1B-34</srccitea>
+				<srccontr>A written description of the hunting boundaries used to create boundaries.</srccontr>
+			</srcinfo>
+			<srcinfo>
+				<srccite>
+					<citeinfo>
+						<origin>NJ Office of Information Technology (NJOIT), Office of Geographic Information Systems (OGIS)</origin>
+						<pubdate>20181019</pubdate>
+						<title>Roads NJ (Centerlines)</title>
+					</citeinfo>
+				</srccite>
+				<typesrc>None</typesrc>
+				<srctime>
+					<timeinfo>
+						<sngdate>
+							<caldate>20181019</caldate>
+						</sngdate>
+					</timeinfo>
+					<srccurr>ground condition</srccurr>
+				</srctime>
+				<srccitea>Tran_road_centerline_NJ</srccitea>
+				<srccontr>Used in cases where roads are used to define the zone boundaries.</srccontr>
+			</srcinfo>
+			<srcinfo>
+				<srccite>
+					<citeinfo>
+						<origin>NJ Office of Information Technology (NJOIT), Office of Geographic Information Systems (OGIS)</origin>
+						<pubdate>20200410</pubdate>
+						<title>New Jersey State Boundary</title>
+					</citeinfo>
+				</srccite>
+				<typesrc>None</typesrc>
+				<srctime>
+					<timeinfo>
+						<sngdate>
+							<caldate>20200410</caldate>
+						</sngdate>
+					</timeinfo>
+					<srccurr>ground condition</srccurr>
+				</srctime>
+				<srccitea>Govt_admin_state_bnd</srccitea>
+				<srccontr>This data set is a spatial representation of the jurisdiction of the State of New Jersey developed by the New Jersey Office of Information Technology (OIT), Office of Geographic Information Systems (OGIS). It is not a survey document and should not be used as such. The polygon delineated in this data set does not represent the legal state boundary. This data set improves upon previous versions of the state boundary through the integration of coincident features from several high quality source data sets, as a component of the OGIS statewide Parcels Normalization Project concluded in March 2010.</srccontr>
+			</srcinfo>
+			<srcinfo>
+				<srccite>
+					<citeinfo>
+						<origin>NJDEP - DOIT - BGIS</origin>
+						<pubdate>20100825</pubdate>
+						<title>National Hydrography Dataset (NHD) Waterbody 2002 for New Jersey</title>
+					</citeinfo>
+				</srccite>
+				<typesrc>None</typesrc>
+				<srctime>
+					<timeinfo>
+						<sngdate>
+							<caldate>20100825</caldate>
+						</sngdate>
+					</timeinfo>
+					<srccurr>grouind condition</srccurr>
+				</srctime>
+				<srccitea>National Hydrography Dataset (NHD) Waterbody 2002 for New Jersey</srccitea>
+				<srccontr>This metadata file contains information for Waterbody features delineated for NJ from 2002 color infrared (CIR) imagery with attributes extracted from the National Hydrography Dataset (NHD). Digitizing of this data was initally done by Aerial Information Systems, Inc., Redlands, CA, under direction of the New Jersey Department of Environmental Protection (NJDEP), Bureau of Geographic Information System (BGIS). Conflation of USGS 1:24,000 High resolution NHD attributes was done by Data Enhancement Services, LLC (DES) partenered with Civil Solutions. This statewide conflation of NHD High resolution information was completed in 2010. All QA/QC was done by NJDEP, Bureau of GIS and USGS. This represents a subset of the statewide extract for NJ dated August 25, 2010.</srccontr>
+			</srcinfo>
+			<srcinfo>
+				<srccite>
+					<citeinfo>
+						<origin>NJDEP - DOIT - BGIS</origin>
+						<pubdate>20100825</pubdate>
+						<title>National Hydrography Dataset (NHD) Streams 2002 for New Jersey</title>
+					</citeinfo>
+				</srccite>
+				<typesrc>None</typesrc>
+				<srctime>
+					<timeinfo>
+						<sngdate>
+							<caldate>20100825</caldate>
+						</sngdate>
+					</timeinfo>
+					<srccurr>ground condition</srccurr>
+				</srctime>
+				<srccitea>National Hydrography Dataset (NHD) Streams 2002 for New Jersey</srccitea>
+				<srccontr>This metadata file contains information for Flowlines delineated for NJ from 2002 color infrared (CIR) imagery with attributes extracted from the National Hydrography Dataset (NHD). Digitizing of this data was initially done by Aerial Information Systems, Inc., Redlands, CA, under direction of the New Jersey Department of Environmental Protection (NJDEP), Bureau of Geographic Information System (BGIS). Conflation of USGS 1:24,000 High resolution NHD attributes was done by Data Enhancement Services, LLC (DES) partnered with Civil Solutions. This statewide conflation of NHD High resolution information was completed in 2010. All QA/QC was done by NJDEP, Bureau of GIS and USGS. This represents a subset of the statewide extract for NJ dated August 25, 2010.</srccontr>
+			</srcinfo>
+			<srcinfo>
+				<srccite>
+					<citeinfo>
+						<origin>U.S. Fish and Wildlife Service, Department of Interior</origin>
+						<pubdate>20190819</pubdate>
+						<title>Annual Department of Interior Federal Register. 50 CFR Part 20. Migratory Bird Hunting; Final Frameworks for Migratory Bird Hunting Regulations</title>
+					</citeinfo>
+				</srccite>
+				<typesrc>None</typesrc>
+				<srctime>
+					<timeinfo>
+						<sngdate>
+							<caldate>20190819</caldate>
+						</sngdate>
+					</timeinfo>
+					<srccurr>annual update</srccurr>
+				</srctime>
+				<srccitea>Annual Department of Interior Federal Register. 50 CFR Part 20. Migratory Bird Hunting; Final Frameworks for Migratory Bird Hunting Regulations</srccitea>
+				<srccontr>Written descrption of all migratory bird zones/areas of NJ (and all US) are published annually.</srccontr>
+			</srcinfo>
+			<procstep>
+				<procdesc>Snapped zone boundaries to features (road and stream centerlines, state border) so that they match the descriptions provided in the Game Code (N.J.A.C. 7:25-5 pursuant to N.J.S.A. 13:1B-34).</procdesc>
+				<procdate>20200110</procdate>
+			</procstep>
+			<procstep>
+				<procdesc>Checked attributes for errors and to ensure accuracy.</procdesc>
+				<procdate>20200110</procdate>
+			</procstep>
+			<procstep>
+				<procdesc>Performed topology checks to ensure boundary data was coincident with the latest data available on roads, streams, waterbodies and administrative boundaries.</procdesc>
+				<procdate>20200114</procdate>
+			</procstep>
+		</lineage>
+	</dataqual>
+	<spdoinfo>
+		<direct>Vector</direct>
+		<ptvctinf>
+			<sdtsterm>
+				<sdtstype>GT-polygon composed of chains</sdtstype>
+				<ptvctcnt>9</ptvctcnt>
+			</sdtsterm>
+		</ptvctinf>
+	</spdoinfo>
+	<spref>
+		<horizsys>
+			<planar>
+				<mapproj>
+					<mapprojn>NAD 1983 StatePlane New Jersey FIPS 2900 Feet</mapprojn>
+					<transmer>
+						<sfctrmer>0.9999</sfctrmer>
+						<longcm>-74.5</longcm>
+						<latprjo>38.83333333333334</latprjo>
+						<feast>492125.0</feast>
+						<fnorth>0.0</fnorth>
+					</transmer>
+				</mapproj>
+				<planci>
+					<plance>coordinate pair</plance>
+					<coordrep>
+						<absres>0.0003280833333333333</absres>
+						<ordres>0.0003280833333333333</ordres>
+					</coordrep>
+					<plandu>foot_us</plandu>
+				</planci>
+			</planar>
+			<geodetic>
+				<horizdn>D North American 1983</horizdn>
+				<ellips>GRS 1980</ellips>
+				<semiaxis>6378137.0</semiaxis>
+				<denflat>298.257222101</denflat>
+			</geodetic>
+		</horizsys>
+	</spref>
+	<eainfo>
+		<detailed>
+			<enttyp>
+				<enttypl>woodcock_hunting_zones</enttypl>
+				<enttypd>Woodcock Hunting Zones</enttypd>
+				<enttypds>Division of Fish and Wildlife</enttypds>
+			</enttyp>
+			<attr>
+				<attrlabl>OBJECTID</attrlabl>
+				<attrdef>Internal feature number.</attrdef>
+				<attrdefs>Esri</attrdefs>
+				<attrdomv>
+					<udom>Sequential unique whole numbers that are automatically generated.</udom>
+				</attrdomv>
+			</attr>
+			<attr>
+				<attrlabl>Shape</attrlabl>
+				<attrdef>Feature geometry.</attrdef>
+				<attrdefs>ESRI</attrdefs>
+				<attrdomv>
+					<udom>Coordinates defining the features.</udom>
+				</attrdomv>
+			</attr>
+			<attr>
+				<attrlabl>AWHZ</attrlabl>
+				<attrdef>American Woodcock Hunting Zone ID</attrdef>
+				<attrdefs>NJDEP Division of Fish and Wildlife</attrdefs>
+				<attrdomv>
+					<codesetd>
+						<codesetn>American Woodcock Hunting Zone</codesetn>
+						<codesets>NJDEP Division of Fish and Wildlife</codesets>
+					</codesetd>
+				</attrdomv>
+			</attr>
+			<attr>
+				<attrlabl>ZONE_NAME</attrlabl>
+				<attrdef>Name of Zone.</attrdef>
+				<attrdefs>NJDEP Division of Fish and Wildlife</attrdefs>
+				<attrdomv>
+					<udom>Unique entry.</udom>
+				</attrdomv>
+			</attr>
+			<attr>
+				<attrlabl>ZONE_DESC</attrlabl>
+				<attrdef>Hyperlink to Zone Descriptions PDF file from www.njfishandwildlife.com.</attrdef>
+				<attrdefs>NJDEP Division of Fish and Wildlife</attrdefs>
+				<attrdomv>
+					<udom>unique entry</udom>
+				</attrdomv>
+			</attr>
+			<attr>
+				<attrlabl>SEASON</attrlabl>
+				<attrdef>Hyperlink to Season Dates file from www.njfishandwildlife.com</attrdef>
+				<attrdefs>NJDEP Division of Fish and Wildlife</attrdefs>
+				<attrdomv>
+					<udom>Unique entry.</udom>
+				</attrdomv>
+			</attr>
+			<attr>
+				<attrlabl>REGULATION</attrlabl>
+				<attrdef>Hyperlink to Regulation file from www.njfishandwildlife.com</attrdef>
+				<attrdefs>NJDEP Division of Fish and Wildlife</attrdefs>
+				<attrdomv>
+					<udom>Unique entry.</udom>
+				</attrdomv>
+			</attr>
+			<attr>
+				<attrlabl>HARVEST</attrlabl>
+				<attrdef>Hyperlink to Harvest Information file from www.njfishandwildlife.com</attrdef>
+				<attrdefs>NJDEP Division of Fish and Wildlife</attrdefs>
+				<attrdomv>
+					<udom>Unique entry.</udom>
+				</attrdomv>
+			</attr>
+			<attr>
+				<attrlabl>ACRES</attrlabl>
+				<attrdef>Area in acres</attrdef>
+				<attrdefs>NJDEP Division of Fish and Wildlife</attrdefs>
+				<attrdomv>
+					<udom>Positive real numbers that are automatically generated.</udom>
+				</attrdomv>
+			</attr>
+			<attr>
+				<attrlabl>HECTARES</attrlabl>
+				<attrdef>Area in hectares</attrdef>
+				<attrdefs>NJDEP Division of Fish and Wildlife</attrdefs>
+				<attrdomv>
+					<udom>Positive real numbers that are automatically generated.</udom>
+				</attrdomv>
+			</attr>
+			<attr>
+				<attrlabl>Shape_Length</attrlabl>
+				<attrdef>Length of feature in internal units.</attrdef>
+				<attrdefs>ESRI</attrdefs>
+				<attrdomv>
+					<udom>Positive real numbers that are automatically generated.</udom>
+				</attrdomv>
+			</attr>
+			<attr>
+				<attrlabl>Shape_Area</attrlabl>
+				<attrdef>Area of feature in internal units squared.</attrdef>
+				<attrdefs>ESRI</attrdefs>
+				<attrdomv>
+					<udom>Positive real numbers that are automatically generated.</udom>
+				</attrdomv>
+			</attr>
+		</detailed>
+	</eainfo>
+	<distinfo>
+		<distrib>
+			<cntinfo>
+				<cntorgp>
+					<cntorg>NJDEP - DOIT - BGIS</cntorg>
+				</cntorgp>
+				<cntaddr>
+					<addrtype>mailing</addrtype>
+					<address>401 East State Street</address>
+					<city>Trenton</city>
+					<state>NJ</state>
+					<postal>08625</postal>
+					<country>US</country>
+				</cntaddr>
+				<cntvoice>(609) 777-0672</cntvoice>
+				<cntfax>(609) 292-7900</cntfax>
+				<cntemail>GISnet@DEP.NJ.gov</cntemail>
+				<cntinst>Contact the Distributor if you have any questions or concerns regarding the distribution and/or download of this data. If you have questions or concerns regarding the data itself, please contact the Metadata Contact person listed in the Metadata Reference Section.</cntinst>
+			</cntinfo>
+		</distrib>
+		<distliab>The State of New Jersey makes great effort to provide secure, accurate, and complete data and metadata. However, portions of the data and metadata may be incorrect or not current. Any errors or omissions should be reported for investigation. 
+
+The State of New Jersey, its officers, employees or agents shall not be liable for damages or losses of any kind arising out of or in connection with the use or performance of data and metadata, including but not limited to, damages or losses caused by reliance upon the accuracy or timeliness of any such data and metadata, or damages incurred from the viewing, distributing, or copying of those materials. 
+
+The data and metadata are provided "as is." No warranty of any kind, implied, expressed, or statutory, including but not limited to the warranties of non-infringement of third party rights, title, merchantability, fitness for a particular purpose, and freedom from computer virus, is given with respect to the data and metadata, or its hyperlinks to other Internet resources. 
+
+The State disclaims any duty or obligation either to maintain availability of or to update the data and metadata.</distliab>
+		<stdorder>
+			<digform>
+				<digtinfo>
+					<formname>DEP distributes ESRI .SHP and/or GDB. Some data may be NJ GeoWeb "display only" layers.</formname>
+					<formvern>10.6.1</formvern>
+					<filedec>WinZip</filedec>
+				</digtinfo>
+				<digtopt>
+					<onlinopt>
+						<computer>
+							<networka>
+								<networkr>https://gisdata-njdep.opendata.arcgis.com/</networkr>
+							</networka>
+						</computer>
+					</onlinopt>
+				</digtopt>
+			</digform>
+			<fees>None</fees>
+			<ordering>All available NJDEP public GIS data can be downloaded for free. Some data shown in NJGeoWeb application may not yet be available for download due to various data or distribution issues. Please email gisnet@dep.nj.gov with any data distribution questions.</ordering>
+		</stdorder>
+	</distinfo>
+	<metainfo>
+		<metd>20200727</metd>
+		<metc>
+			<cntinfo>
+				<cntorgp>
+					<cntorg>New Jersey Department of Environmental Protection (NJDEP), Division of Fish and Wildlife (DFW), Office of Fish and Wildlife Information Systems (OFWIS)</cntorg>
+					<cntper>Office of Fish and Wildlife Information Systems</cntper>
+				</cntorgp>
+				<cntaddr>
+					<addrtype>physical</addrtype>
+					<address>1 Eldridge Road</address>
+					<city>Upper Freehold Township</city>
+					<state>NJ</state>
+					<postal>08691</postal>
+					<country>US</country>
+				</cntaddr>
+				<cntvoice>(609) 223-6060</cntvoice>
+				<cntemail>DFWGIS@dep.nj.gov</cntemail>
+			</cntinfo>
+		</metc>
+		<metstdn>FGDC Content Standard for Digital Geospatial Metadata</metstdn>
+		<metstdv>FGDC-STD-001-1998</metstdv>
+		<mettc>local time</mettc>
+	</metainfo>
+</metadata>

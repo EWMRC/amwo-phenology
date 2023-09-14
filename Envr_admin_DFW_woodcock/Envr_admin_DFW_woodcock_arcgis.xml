@@ -1,0 +1,893 @@
+<metadata>
+	<Esri>
+		<CreaDate>20160719</CreaDate>
+		<CreaTime>08054800</CreaTime>
+		<ArcGISFormat>1.0</ArcGISFormat>
+		<DataProperties>
+			<itemProps>
+				<imsContentType export="True">002</imsContentType>
+			</itemProps>
+		</DataProperties>
+		<SyncDate>20200727</SyncDate>
+		<SyncTime>21544100</SyncTime>
+		<ModDate>20200805</ModDate>
+		<ModTime>10424200</ModTime>
+		<ArcGISProfile>FGDC</ArcGISProfile>
+		<scaleRange>
+			<minScale>150000000</minScale>
+			<maxScale>5000</maxScale>
+		</scaleRange>
+	</Esri>
+	<Binary>
+		<Thumbnail>
+			<Data EsriPropertyType="PictureX">/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsK
+CwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQU
+FBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCACFAMgDASIA
+AhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQA
+AAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3
+ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWm
+p6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEA
+AwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSEx
+BhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElK
+U1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3
+uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD79oPS
+iivggMCzsVu768KwtPN9rlXlmOOeO+BxWuvgtdru6xeaP4fMcj8MHmodHuo7aa6baIiLqYmXBY53
+dhnFX4LwXVxIJL6aC3H3Q332/wAK+ro29nHUy9TJuvDqWpG+NXYn7scjZ/LOacNHs4UUy25yR/Cz
+n8+a7K1tpIYwdxnQnIdnywBH0qBoXkeQNAtvFGTkMwO7I6/St+VhynKQ6VaSOoFsQe2Xb8uvNbdr
+4d06KDMtqp5O5izEn268GrkktvHGTbwM5xjcFO0fjVSKQ2oLuoOT96VyEU+uMcmiPu7hsQT6bp9n
+Ckk1jGWAxGm5stz95uahbRdNjHmTQxlpASoWRwB+RqG+unvJWlY5J71HGvmZUkkgcc8VHM27icui
+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
+QSO/v9eaKKK7nuckVdan/9k=</Data>
+		</Thumbnail>
+	</Binary>
+	<mdLang>
+		<languageCode value="eng" />
+		<countryCode Sync="TRUE" value="USA" />
+	</mdLang>
+	<mdChar>
+		<CharSetCd value="004" />
+	</mdChar>
+	<mdHrLv>
+		<ScopeCd value="005" />
+	</mdHrLv>
+	<mdContact>
+		<rpOrgName>New Jersey Department of Environmental Protection (NJDEP), Division of Fish and Wildlife (DFW), Office of Fish and Wildlife Information Systems (OFWIS)</rpOrgName>
+		<role>
+			<RoleCd value="007" />
+		</role>
+		<rpCntInfo>
+			<cntAddress addressType="physical">
+				<delPoint>1 Eldridge Road</delPoint>
+				<city>Upper Freehold Township</city>
+				<adminArea>NJ</adminArea>
+				<postCode>08691</postCode>
+				<eMailAdd>DFWGIS@dep.nj.gov</eMailAdd>
+				<country>US</country>
+			</cntAddress>
+			<cntPhone>
+				<voiceNum tddtty="">(609) 223-6060</voiceNum>
+			</cntPhone>
+		</rpCntInfo>
+		<rpIndName>Office of Fish and Wildlife Information Systems</rpIndName>
+	</mdContact>
+	<mdStanName>ArcGIS Metadata</mdStanName>
+	<mdStanVer>1.0</mdStanVer>
+	<distInfo>
+		<distributor>
+			<distorCont>
+				<rpIndName>GIS Help Desk</rpIndName>
+				<rpOrgName>NJDEP/DOIT/Bureau of GIS</rpOrgName>
+				<rpCntInfo>
+					<cntPhone>
+						<voiceNum>(609) 777-0672</voiceNum>
+						<faxNum>(609) 292-7900</faxNum>
+					</cntPhone>
+					<cntAddress addressType="both">
+						<delPoint>401 East State Street</delPoint>
+						<city>Trenton</city>
+						<adminArea>NJ</adminArea>
+						<postCode>08625</postCode>
+						<eMailAdd>gisnet@dep.nj.gov</eMailAdd>
+					</cntAddress>
+				</rpCntInfo>
+				<role>
+					<RoleCd value="005" />
+				</role>
+			</distorCont>
+			<distorOrdPrc>
+				<resFees>None</resFees>
+				<ordInstr>All available NJDEP public GIS data can be downloaded for free. Some data shown in NJGeoWeb application may not yet be available for download due to various data or distribution issues. Please email gisnet@dep.nj.gov with any data distribution questions.</ordInstr>
+			</distorOrdPrc>
+			<distorFormat>
+				<formatName>DEP distributes ESRI .SHP and/or GDB. Some data may be NJ GeoWeb "display only" layers.</formatName>
+				<formatVer>latest version</formatVer>
+				<fileDecmTech>WinZip</fileDecmTech>
+			</distorFormat>
+			<distorTran>
+				<onLineSrc>
+					<linkage>https://www.nj.gov/dep/gis/</linkage>
+				</onLineSrc>
+				<onLineSrc>
+					<linkage>http://www.nj.gov/dep/gis/geowebsplash.htm</linkage>
+				</onLineSrc>
+			</distorTran>
+		</distributor>
+		<distTranOps>
+			<onLineSrc>
+				<linkage>https://www.nj.gov/dep/gis/geowebsplash.htm</linkage>
+			</onLineSrc>
+		</distTranOps>
+		<distTranOps>
+			<onLineSrc>
+				<linkage>https://www.nj.gov/dep/gis/geowebsplash.htm</linkage>
+			</onLineSrc>
+		</distTranOps>		
+	</distInfo>
+	<dataIdInfo>
+		<idCitation>
+			<resTitle Sync="FALSE">Woodcock Hunting Zones in New Jersey, Edition 20220815 (Envr_admin_DFW_woodcock)</resTitle>
+			<presForm>
+				<fgdcGeoform>vector digital data</fgdcGeoform>
+				<PresFormCd Sync="TRUE" value="005" />
+			</presForm>
+			<resAltTitle>Woodcock_Hunting_Zones</resAltTitle>
+			<date>
+				<pubDate>2020-09-01T00:00:00</pubDate>
+			</date>
+			<citRespParty>
+				<rpIndName>Office of Fish and Wildlife Information Systems</rpIndName>
+				<rpOrgName>New Jersey Department of Environmenal Protection (NJDEP), Division of Fish and Wildlife (DFW), Office of Fish and Wildlife Information Systems</rpOrgName>
+				<rpCntInfo>
+					<cntAddress addressType="physical">
+						<delPoint>1 Eldridge Road</delPoint>
+						<city>Upper Freehold Township</city>
+						<adminArea>NJ</adminArea>
+						<postCode>08691</postCode>
+						<eMailAdd>DFWGIS@dep.nj.gov</eMailAdd>
+						<country>US</country>
+					</cntAddress>
+					<cntPhone>
+						<voiceNum tddtty="">(609) 223-6060</voiceNum>
+					</cntPhone>
+				</rpCntInfo>
+				<displayName>New Jersey Department of Environmenal Protection (NJDEP), Division of Fish and Wildlife (DFW), Office of Fish and Wildlife Information Systems</displayName>
+				<role>
+					<RoleCd value="006" />
+				</role>
+			</citRespParty>
+			<resEdDate>20200901</resEdDate>
+		</idCitation>
+		<idPurp>This data can be used to locate and identify woodcock hunting location information.</idPurp>
+		<idAbs>&lt;DIV STYLE="text-align:Left;"&gt;&lt;DIV&gt;&lt;DIV&gt;&lt;P&gt;&lt;SPAN&gt;The NJ Division of Fish &amp;amp; Wildlife (DFW), Atlantic Flyway Council, and US Fish and Wildlife Service cooperatively manage migratory game bird hunting seasons. These zones delineate hunting areas for woodcock in New Jersey.&lt;/SPAN&gt;&lt;/P&gt;&lt;/DIV&gt;&lt;/DIV&gt;&lt;/DIV&gt;</idAbs>
+		<resConst>
+			<Consts>
+				<useLimit>&lt;DIV STYLE="text-align:Left;"&gt;&lt;DIV&gt;&lt;DIV&gt;&lt;DIV STYLE="font-size:12pt"&gt;&lt;P&gt;&lt;SPAN&gt;This data set is not survey data and must not be used as survey data. &lt;/SPAN&gt;&lt;SPAN&gt;New Jersey Department of Environmental Protection (NJDEP) Data Distribution Agreement. The data provided herein are distributed subject to the following conditions and restrictions: NJDEP assumes no responsibility to maintain them in any manner or form and disclaims any duty or obligation to either maintain availability of or to update the data. Terms of Agreement 1. All data is provided, as is, without any representation or warranty of any kind, implied, expressed or statutory including, but not limited to, the warranties of non-infringement of third party rights, title, merchantability or fitness for a particular use, freedom from computer virus nor are any such warranties to be implied with respect to the digital data layers furnished hereunder. User is responsible for understanding the accuracy limitations of all digital data layers provided herein, as documented in the accompanying cross-reference files (see SUPPLEMENTAL INFORMATION). Any reproduction or manipulation of the above data must ensure that the coordinate reference system remains intact. 2. Digital data received from the NJDEP may not be reproduced or redistributed without all the metadata provided. 3. Any maps, publications, reports, or other documents produced as a result of this project that utilize this digital data will credit the NJDEP's Geographic Information System (GIS) as the source of the data with the following credit/disclaimer: "This (map/publication/report) was developed using New Jersey Department of Environmental Protection Geographic Information System digital data, but this secondary product has not been verified by NJDEP and is not state-authorized or endorsed." 4. NJDEP makes no warranty that digital data are free of Copyright or Trademark claims or other restrictions or limitations on free use or display. Making a copy of this data may be subject to the copyright of trademark laws. Acknowledgement of the data set provider, NJ Office of Information Technology, Office of Geographic Information Systems (NJOIT - OGIS), would be appreciated for maps, data or other products derived from this data set. &lt;/SPAN&gt;&lt;/P&gt;&lt;P&gt;&lt;SPAN&gt;The State of New Jersey makes great effort to provide secure, accurate, and complete data and metadata. However, portions of the data and metadata may be incorrect or not current. Any errors or omissions should be reported for investigation. &lt;/SPAN&gt;&lt;/P&gt;&lt;P&gt;&lt;SPAN&gt;The State of New Jersey, its officers, employees or agents shall not be liable for damages or losses of any kind arising out of or in connection with the use or performance of data and metadata, including but not limited to, damages or losses caused by reliance upon the accuracy or timeliness of any such data and metadata, or damages incurred from the viewing, distributing, or copying of those materials. &lt;/SPAN&gt;&lt;/P&gt;&lt;P&gt;&lt;SPAN&gt;The data and metadata are provided "as is." No warranty of any kind, implied, expressed, or statutory, including but not limited to the warranties of non-infringement of third party rights, title, merchantability, fitness for a particular purpose, and freedom from computer virus, is given with respect to the data and metadata, or its hyperlinks to other Internet resources. &lt;/SPAN&gt;&lt;/P&gt;&lt;P&gt;&lt;SPAN&gt;The State disclaims any duty or obligation either to maintain availability of or to update the data and metadata.&lt;/SPAN&gt;&lt;/P&gt;&lt;/DIV&gt;&lt;/DIV&gt;&lt;/DIV&gt;&lt;/DIV&gt;</useLimit>
+			</Consts>
+		</resConst>
+		<themeKeys>
+			<keyword>permits</keyword>
+			<keyword>population</keyword>
+			<keyword>wildlife</keyword>
+			<keyword>hunting zones</keyword>
+			<keyword>woodcock</keyword>
+			<keyword>regulation</keyword>
+			<keyword>units</keyword>
+			<keyword>boundaries</keyword>
+			<keyword>management</keyword>
+			<keyword>hunting</keyword>
+			<keyword>woodcock hunting zones</keyword>
+			<keyword>public</keyword>
+			<keyword>zones</keyword>
+		</themeKeys>
+		<placeKeys>
+			<keyword>New Jersey</keyword>
+		</placeKeys>
+		<searchKeys>
+			<keyword>permits</keyword>
+			<keyword>population</keyword>
+			<keyword>wildlife</keyword>
+			<keyword>hunting zones</keyword>
+			<keyword>woodcock</keyword>
+			<keyword>regulation</keyword>
+			<keyword>units</keyword>
+			<keyword>boundaries</keyword>
+			<keyword>management</keyword>
+			<keyword>hunting</keyword>
+			<keyword>woodcock hunting zones</keyword>
+			<keyword>public</keyword>
+			<keyword>zones</keyword>
+			<keyword>NJDEPTrentonMetadata</keyword>
+			<keyword>Envr_admin_DFW_woodcock</keyword>
+			<keyword>NJDEP</keyword>
+			<keyword>New Jersey</keyword>
+		</searchKeys>
+		<dataChar>
+			<CharSetCd value="004" />
+		</dataChar>
+		<suppInfo>For information related to Woodcock Zones and Zone Descriptions, please go to: https://www.njfishandwildlife.com/pdf/huntzones/woodcockzones.pdf.</suppInfo>
+		<idStatus>
+			<ProgCd value="001" />
+		</idStatus>
+		<dataExt>
+			<exDesc>Publication date</exDesc>
+			<tempEle>
+				<TempExtent>
+					<exTemp>
+						<TM_Instant>
+							<tmPosition>2020-09-01T00:00:00</tmPosition>
+						</TM_Instant>
+					</exTemp>
+				</TempExtent>
+			</tempEle>
+		</dataExt>
+		<idPoC>
+			<rpOrgName>New Jersey Department of Environmental Protection (NJDEP), Division of Fish and Wildlife (DFW), Office of Fish and Wildlife Information Systems.</rpOrgName>
+			<rpCntInfo>
+				<cntAddress addressType="both">
+					<delPoint>1 Eldridge Road</delPoint>
+					<city>Upper Freehold Township</city>
+					<adminArea>NJ</adminArea>
+					<postCode>08691</postCode>
+					<eMailAdd>DFWGIS@dep.nj.gov</eMailAdd>
+				</cntAddress>
+				<cntPhone>
+					<voiceNum tddtty="">(609) 223-6060</voiceNum>
+				</cntPhone>
+			</rpCntInfo>
+			<role>
+				<RoleCd value="007" />
+			</role>
+			<rpIndName>Office of Fish and Wildlife Information Systems</rpIndName>
+		</idPoC>
+		<resMaint>
+			<maintFreq>
+				<MaintFreqCd value="009" />
+			</maintFreq>
+		</resMaint>
+		<resConst>
+			<LegConsts>
+				<useLimit>The State of New Jersey makes great effort to provide secure, accurate, and complete data and metadata. However, portions of the data and metadata may be incorrect or not current. Any errors or omissions should be reported for investigation. 
+
+The State of New Jersey, its officers, employees or agents shall not be liable for damages or losses of any kind arising out of or in connection with the use or performance of data and metadata, including but not limited to, damages or losses caused by reliance upon the accuracy or timeliness of any such data and metadata, or damages incurred from the viewing, distributing, or copying of those materials. 
+
+The data and metadata are provided "as is." No warranty of any kind, implied, expressed, or statutory, including but not limited to the warranties of non-infringement of third party rights, title, merchantability, fitness for a particular purpose, and freedom from computer virus, is given with respect to the data and metadata, or its hyperlinks to other Internet resources. 
+
+The State disclaims any duty or obligation either to maintain availability of or to update the data and metadata.</useLimit>
+			</LegConsts>
+		</resConst>
+		<envirDesc Sync="TRUE"> Version 6.2 (Build 9200) ; Esri ArcGIS 10.6.1.9270</envirDesc>
+		<dataLang>
+			<languageCode Sync="TRUE" value="eng" />
+			<countryCode Sync="TRUE" value="USA" />
+		</dataLang>
+		<spatRpType>
+			<SpatRepTypCd Sync="TRUE" value="001" />
+		</spatRpType>
+		<dataExt>
+			<geoEle>
+				<GeoBndBox esriExtentType="search">
+					<exTypeCode Sync="TRUE">1</exTypeCode>
+					<westBL Sync="TRUE">-75.587089</westBL>
+					<eastBL Sync="TRUE">-73.899178</eastBL>
+					<northBL Sync="TRUE">41.357813</northBL>
+					<southBL Sync="TRUE">38.924577</southBL>
+				</GeoBndBox>
+			</geoEle>
+		</dataExt>
+		<tpCat>
+			<TopicCatCd value="007" />
+		</tpCat>
+	</dataIdInfo>
+	<mdMaint>
+		<maintFreq>
+			<MaintFreqCd value="009" />
+		</maintFreq>
+	</mdMaint>
+	<dqInfo>
+		<dqScope>
+			<scpLvl>
+				<ScopeCd value="005" />
+			</scpLvl>
+		</dqScope>
+		<report dimension="" type="DQConcConsis">
+			<measDesc>Attribute accuracy was checked manually for each attribute field. A topology check was performed to remove gaps and overlaps and to repair geometry.</measDesc>
+		</report>
+		<report dimension="" type="DQCompOm">
+			<measDesc>No known omissions.</measDesc>
+			<evalMethDesc>Attribute accuracy checked manually for each attribute field.</evalMethDesc>
+		</report>
+		<dataLineage>
+			<dataSource type="">
+				<srcDesc>Used as base maps to rectify boundaries.</srcDesc>
+				<srcScale>
+					<rfDenom>2400</rfDenom>
+				</srcScale>
+				<srcCitatn>
+					<resTitle>New Jersey 2015 Orthophotography</resTitle>
+					<resAltTitle>2015 Imagery</resAltTitle>
+					<date>
+						<pubDate>2016-02-10T00:00:00</pubDate>
+					</date>
+					<citRespParty>
+						<rpOrgName>NJ Office of Information Technology (NJOIT), Office of Geographic Information Systems (OGIS)</rpOrgName>
+						<role>
+							<RoleCd value="006" />
+						</role>
+					</citRespParty>
+					<resEdDate>20160210</resEdDate>
+				</srcCitatn>
+				<srcExt>
+					<exDesc>ground condition</exDesc>
+					<tempEle>
+						<TempExtent>
+							<exTemp>
+								<TM_Instant>
+									<tmPosition>2016-02-10T00:00:00</tmPosition>
+								</TM_Instant>
+							</exTemp>
+						</TempExtent>
+					</tempEle>
+				</srcExt>
+			</dataSource>
+			<dataSource type="">
+				<srcDesc>A written description of the hunting boundaries used to create boundaries.</srcDesc>
+				<srcCitatn>
+					<resTitle>2017-18 Game Code; N.J.A.C. 7:25-5 pursuant to N.J.S.A. 13:1B-34</resTitle>
+					<date>
+						<pubDate>2017-09-05T00:00:00</pubDate>
+					</date>
+					<citRespParty>
+						<rpIndName>Fish and Game Council</rpIndName>
+						<rpOrgName>NJDEP</rpOrgName>
+						<role>
+							<RoleCd value="006" />
+						</role>
+					</citRespParty>
+				</srcCitatn>
+				<srcExt>
+					<exDesc>ground condition</exDesc>
+					<tempEle>
+						<TempExtent>
+							<exTemp>
+								<TM_Instant>
+									<tmPosition>2017-09-05T00:00:00</tmPosition>
+								</TM_Instant>
+							</exTemp>
+						</TempExtent>
+					</tempEle>
+				</srcExt>
+			</dataSource>
+			<dataSource type="">
+				<srcDesc>Used in cases where roads are used to define the zone boundaries.</srcDesc>
+				<srcCitatn>
+					<resTitle>Roads NJ (Centerlines)</resTitle>
+					<resAltTitle>Tran_road_centerline_NJ</resAltTitle>
+					<date>
+						<pubDate>2018-10-19T00:00:00</pubDate>
+					</date>
+					<citRespParty>
+						<rpOrgName>NJ Office of Information Technology (NJOIT), Office of Geographic Information Systems (OGIS)</rpOrgName>
+						<role>
+							<RoleCd value="006" />
+						</role>
+						<displayName>NJ Office of Information Technology (NJOIT), Office of Geographic Information Systems (OGIS)</displayName>
+					</citRespParty>
+				</srcCitatn>
+				<srcExt>
+					<exDesc>ground condition</exDesc>
+					<tempEle>
+						<TempExtent>
+							<exTemp>
+								<TM_Instant>
+									<tmPosition>2018-10-19T00:00:00</tmPosition>
+								</TM_Instant>
+							</exTemp>
+						</TempExtent>
+					</tempEle>
+				</srcExt>
+			</dataSource>
+			<dataSource type="">
+				<srcDesc>This data set is a spatial representation of the jurisdiction of the State of New Jersey developed by the New Jersey Office of Information Technology (OIT), Office of Geographic Information Systems (OGIS). It is not a survey document and should not be used as such. The polygon delineated in this data set does not represent the legal state boundary. This data set improves upon previous versions of the state boundary through the integration of coincident features from several high quality source data sets, as a component of the OGIS statewide Parcels Normalization Project concluded in March 2010.</srcDesc>
+				<srcCitatn>
+					<resTitle>New Jersey State Boundary</resTitle>
+					<resAltTitle>Govt_admin_state_bnd</resAltTitle>
+					<citRespParty>
+						<rpOrgName>NJ Office of Information Technology (NJOIT), Office of Geographic Information Systems (OGIS)</rpOrgName>
+						<role>
+							<RoleCd value="006" />
+						</role>
+					</citRespParty>
+					<date>
+						<pubDate>2020-04-10T00:00:00</pubDate>
+					</date>
+				</srcCitatn>
+				<srcExt>
+					<exDesc>ground condition</exDesc>
+					<tempEle>
+						<TempExtent>
+							<exTemp>
+								<TM_Instant>
+									<tmPosition>2020-04-10T00:00:00</tmPosition>
+								</TM_Instant>
+							</exTemp>
+						</TempExtent>
+					</tempEle>
+				</srcExt>
+			</dataSource>
+			<dataSource type="">
+				<srcDesc>This metadata file contains information for Waterbody features delineated for NJ from 2002 color infrared (CIR) imagery with attributes extracted from the National Hydrography Dataset (NHD). Digitizing of this data was initally done by Aerial Information Systems, Inc., Redlands, CA, under direction of the New Jersey Department of Environmental Protection (NJDEP), Bureau of Geographic Information System (BGIS). Conflation of USGS 1:24,000 High resolution NHD attributes was done by Data Enhancement Services, LLC (DES) partenered with Civil Solutions. This statewide conflation of NHD High resolution information was completed in 2010. All QA/QC was done by NJDEP, Bureau of GIS and USGS. This represents a subset of the statewide extract for NJ dated August 25, 2010.</srcDesc>
+				<srcCitatn>
+					<resTitle>National Hydrography Dataset (NHD) Waterbody 2002 for New Jersey</resTitle>
+					<date>
+						<pubDate>2010-08-25T00:00:00</pubDate>
+					</date>
+					<citRespParty>
+						<rpOrgName>NJDEP - DOIT - BGIS</rpOrgName>
+						<role>
+							<RoleCd value="006" />
+						</role>
+						<rpCntInfo>
+							<cntAddress addressType="postal">
+								<delPoint>401 East State Street</delPoint>
+								<city>Trenton</city>
+								<adminArea>NJ</adminArea>
+								<postCode>08625</postCode>
+								<eMailAdd>GISnet@DEP.NJ.gov</eMailAdd>
+								<country>US</country>
+							</cntAddress>
+							<cntPhone>
+								<voiceNum tddtty="">(609) 777-0672</voiceNum>
+								<faxNum>(609) 292-7900</faxNum>
+							</cntPhone>
+							<cntInstr>Contact the Distributor if you have any questions or concerns regarding the distribution and/or download of this data. If you have questions or concerns regarding the data itself, please contact the Metadata Contact person listed in the Metadata Reference Section.</cntInstr>
+						</rpCntInfo>
+						<displayName>NJDEP - DOIT - BGIS</displayName>
+					</citRespParty>
+				</srcCitatn>
+				<srcExt>
+					<exDesc>grouind condition</exDesc>
+					<tempEle>
+						<TempExtent>
+							<exTemp>
+								<TM_Instant>
+									<tmPosition>2010-08-25T00:00:00</tmPosition>
+								</TM_Instant>
+							</exTemp>
+						</TempExtent>
+					</tempEle>
+				</srcExt>
+			</dataSource>
+			<dataSource type="">
+				<srcDesc>This metadata file contains information for Flowlines delineated for NJ from 2002 color infrared (CIR) imagery with attributes extracted from the National Hydrography Dataset (NHD). Digitizing of this data was initially done by Aerial Information Systems, Inc., Redlands, CA, under direction of the New Jersey Department of Environmental Protection (NJDEP), Bureau of Geographic Information System (BGIS). Conflation of USGS 1:24,000 High resolution NHD attributes was done by Data Enhancement Services, LLC (DES) partnered with Civil Solutions. This statewide conflation of NHD High resolution information was completed in 2010. All QA/QC was done by NJDEP, Bureau of GIS and USGS. This represents a subset of the statewide extract for NJ dated August 25, 2010.</srcDesc>
+				<srcCitatn>
+					<resTitle>National Hydrography Dataset (NHD) Streams 2002 for New Jersey</resTitle>
+					<citRespParty>
+						<rpOrgName>NJDEP - DOIT - BGIS</rpOrgName>
+						<role>
+							<RoleCd value="006" />
+						</role>
+						<rpCntInfo>
+							<cntAddress addressType="postal">
+								<delPoint>401 East State Street</delPoint>
+								<city>Trenton</city>
+								<adminArea>NJ</adminArea>
+								<postCode>08625</postCode>
+								<eMailAdd>GISnet@DEP.NJ.gov</eMailAdd>
+								<country>US</country>
+							</cntAddress>
+							<cntPhone>
+								<voiceNum tddtty="">(609) 777-0672</voiceNum>
+								<faxNum>(609) 292-7900</faxNum>
+							</cntPhone>
+							<cntInstr>Contact the Distributor if you have any questions or concerns regarding the distribution and/or download of this data. If you have questions or concerns regarding the data itself, please contact the Metadata Contact person listed in the Metadata Reference Section.</cntInstr>
+						</rpCntInfo>
+						<displayName>NJDEP - DOIT - BGIS</displayName>
+					</citRespParty>
+					<date>
+						<pubDate>2010-08-25T00:00:00</pubDate>
+					</date>
+				</srcCitatn>
+				<srcExt>
+					<exDesc>ground condition</exDesc>
+					<tempEle>
+						<TempExtent>
+							<exTemp>
+								<TM_Instant>
+									<tmPosition>2010-08-25T00:00:00</tmPosition>
+								</TM_Instant>
+							</exTemp>
+						</TempExtent>
+					</tempEle>
+				</srcExt>
+			</dataSource>
+			<dataSource type="">
+				<srcDesc>Written descrption of all migratory bird zones/areas of NJ (and all US) are published annually.</srcDesc>
+				<srcCitatn>
+					<resTitle>Annual Department of Interior Federal Register. 50 CFR Part 20. Migratory Bird Hunting; Final Frameworks for Migratory Bird Hunting Regulations</resTitle>
+					<date>
+						<pubDate>2019-08-19T00:00:00</pubDate>
+					</date>
+					<citRespParty>
+						<rpIndName>U.S. Fish and Wildlife Service</rpIndName>
+						<rpOrgName>Department of Interior</rpOrgName>
+						<role>
+							<RoleCd value="006" />
+						</role>
+					</citRespParty>
+				</srcCitatn>
+				<srcExt>
+					<exDesc>annual update</exDesc>
+					<tempEle>
+						<TempExtent>
+							<exTemp>
+								<TM_Instant>
+									<tmPosition>2019-08-19T00:00:00</tmPosition>
+								</TM_Instant>
+							</exTemp>
+						</TempExtent>
+					</tempEle>
+				</srcExt>
+			</dataSource>
+			<prcStep>
+				<stepDesc>Checked attributes for errors and to ensure accuracy.</stepDesc>
+				<stepDateTm>2020-01-10T00:00:00</stepDateTm>
+			</prcStep>
+			<prcStep>
+				<stepDesc>Snapped zone boundaries to features (road and stream centerlines, state border) so that they match the descriptions provided in the Game Code (N.J.A.C. 7:25-5 pursuant to N.J.S.A. 13:1B-34).</stepDesc>
+				<stepDateTm>2020-01-10T00:00:00</stepDateTm>
+			</prcStep>
+			<prcStep>
+				<stepDesc>Performed topology checks to ensure boundary data was coincident with the latest data available on roads, streams, waterbodies and administrative boundaries.</stepDesc>
+				<stepDateTm>2020-01-14T00:00:00</stepDateTm>
+			</prcStep>
+		</dataLineage>
+	</dqInfo>
+	<eainfo>
+		<detailed Name="woodcock_hunting_zones">
+			<enttyp>
+				<enttypl Sync="TRUE">woodcock_hunting_zones</enttypl>
+				<enttypt Sync="TRUE">Feature Class</enttypt>
+				<enttypc Sync="TRUE">9</enttypc>
+				<enttypd>Woodcock Hunting Zones</enttypd>
+				<enttypds>Division of Fish and Wildlife</enttypds>
+			</enttyp>
+			<attr>
+				<attrlabl>OBJECTID</attrlabl>
+				<attrdef>Internal feature number.</attrdef>
+				<attrdefs>Esri</attrdefs>
+				<attrdomv>
+					<udom>Sequential unique whole numbers that are automatically generated.</udom>
+				</attrdomv>
+				<attalias Sync="TRUE">OBJECTID</attalias>
+				<attrtype Sync="TRUE">OID</attrtype>
+				<attwidth Sync="TRUE">4</attwidth>
+				<atprecis Sync="TRUE">0</atprecis>
+				<attscale Sync="TRUE">0</attscale>
+			</attr>
+			<attr>
+				<attrlabl>Shape</attrlabl>
+				<attrdef>Feature geometry.</attrdef>
+				<attrdefs>ESRI</attrdefs>
+				<attrdomv>
+					<udom>Coordinates defining the features.</udom>
+				</attrdomv>
+				<attalias Sync="TRUE">Shape</attalias>
+				<attrtype Sync="TRUE">Geometry</attrtype>
+				<attwidth Sync="TRUE">0</attwidth>
+				<atprecis Sync="TRUE">0</atprecis>
+				<attscale Sync="TRUE">0</attscale>
+			</attr>
+			<attr>
+				<attrlabl Sync="TRUE">AWHZ</attrlabl>
+				<attalias Sync="TRUE">Zone Number</attalias>
+				<attrtype Sync="TRUE">SmallInteger</attrtype>
+				<attwidth Sync="TRUE">2</attwidth>
+				<atprecis Sync="TRUE">0</atprecis>
+				<attscale Sync="TRUE">0</attscale>
+				<attrdef>American Woodcock Hunting Zone ID</attrdef>
+				<attrdefs>NJDEP Division of Fish and Wildlife</attrdefs>
+				<attrdomv>
+					<codesetd>
+						<codesetn>American Woodcock Hunting Zone</codesetn>
+						<codesets>NJDEP Division of Fish and Wildlife</codesets>
+					</codesetd>
+				</attrdomv>
+			</attr>
+			<attr>
+				<attrlabl Sync="TRUE">ZONE_NAME</attrlabl>
+				<attalias Sync="TRUE">Zone Name</attalias>
+				<attrtype Sync="TRUE">String</attrtype>
+				<attwidth Sync="TRUE">55</attwidth>
+				<atprecis Sync="TRUE">0</atprecis>
+				<attscale Sync="TRUE">0</attscale>
+				<attrdef>Name of Zone.</attrdef>
+				<attrdefs>NJDEP Division of Fish and Wildlife</attrdefs>
+				<attrdomv>
+					<udom>Unique entry.</udom>
+				</attrdomv>
+			</attr>
+			<attr>
+				<attrlabl Sync="TRUE">ZONE_DESC</attrlabl>
+				<attalias Sync="TRUE">Zone Description</attalias>
+				<attrtype Sync="TRUE">String</attrtype>
+				<attwidth Sync="TRUE">90</attwidth>
+				<atprecis Sync="TRUE">0</atprecis>
+				<attscale Sync="TRUE">0</attscale>
+				<attrdef>Hyperlink to Zone Descriptions PDF file from www.njfishandwildlife.com. </attrdef>
+				<attrdefs>NJDEP Division of Fish and Wildlife</attrdefs>
+				<attrdomv>
+					<udom>unique entry</udom>
+				</attrdomv>
+			</attr>
+			<attr>
+				<attrlabl Sync="TRUE">SEASON</attrlabl>
+				<attalias Sync="TRUE">Season Dates</attalias>
+				<attrtype Sync="TRUE">String</attrtype>
+				<attwidth Sync="TRUE">90</attwidth>
+				<atprecis Sync="TRUE">0</atprecis>
+				<attscale Sync="TRUE">0</attscale>
+				<attrdef>Hyperlink to Season Dates file from www.njfishandwildlife.com</attrdef>
+				<attrdefs>NJDEP Division of Fish and Wildlife</attrdefs>
+				<attrdomv>
+					<udom>Unique entry.</udom>
+				</attrdomv>
+			</attr>
+			<attr>
+				<attrlabl Sync="TRUE">REGULATION</attrlabl>
+				<attalias Sync="TRUE">Regulation</attalias>
+				<attrtype Sync="TRUE">String</attrtype>
+				<attwidth Sync="TRUE">90</attwidth>
+				<atprecis Sync="TRUE">0</atprecis>
+				<attscale Sync="TRUE">0</attscale>
+				<attrdef>Hyperlink to Regulation file from www.njfishandwildlife.com</attrdef>
+				<attrdefs>NJDEP Division of Fish and Wildlife</attrdefs>
+				<attrdomv>
+					<udom>Unique entry.</udom>
+				</attrdomv>
+			</attr>
+			<attr>
+				<attrlabl Sync="TRUE">HARVEST</attrlabl>
+				<attalias Sync="TRUE">Harvest</attalias>
+				<attrtype Sync="TRUE">String</attrtype>
+				<attwidth Sync="TRUE">90</attwidth>
+				<atprecis Sync="TRUE">0</atprecis>
+				<attscale Sync="TRUE">0</attscale>
+				<attrdef>Hyperlink to Harvest Information file from www.njfishandwildlife.com</attrdef>
+				<attrdefs>NJDEP Division of Fish and Wildlife</attrdefs>
+				<attrdomv>
+					<udom>Unique entry.</udom>
+				</attrdomv>
+			</attr>
+			<attr>
+				<attrlabl Sync="TRUE">ACRES</attrlabl>
+				<attalias Sync="TRUE">Acres</attalias>
+				<attrtype Sync="TRUE">Double</attrtype>
+				<attwidth Sync="TRUE">8</attwidth>
+				<atprecis Sync="TRUE">0</atprecis>
+				<attscale Sync="TRUE">0</attscale>
+				<attrdef>Area in acres</attrdef>
+				<attrdefs>NJDEP Division of Fish and Wildlife</attrdefs>
+				<attrdomv>
+					<udom>Positive real numbers that are automatically generated.</udom>
+				</attrdomv>
+			</attr>
+			<attr>
+				<attrlabl Sync="FALSE">HECTARES</attrlabl>
+				<attalias Sync="TRUE">Hectares</attalias>
+				<attrtype Sync="TRUE">Double</attrtype>
+				<attwidth Sync="TRUE">8</attwidth>
+				<atprecis Sync="TRUE">0</atprecis>
+				<attscale Sync="TRUE">0</attscale>
+				<attrdef>Area in hectares</attrdef>
+				<attrdefs>NJDEP Division of Fish and Wildlife</attrdefs>
+				<attrdomv>
+					<udom>Positive real numbers that are automatically generated.</udom>
+				</attrdomv>
+			</attr>
+			<attr>
+				<attrlabl>Shape_Length</attrlabl>
+				<attrdef>Length of feature in internal units.</attrdef>
+				<attrdefs>ESRI</attrdefs>
+				<attrdomv>
+					<udom>Positive real numbers that are automatically generated.</udom>
+				</attrdomv>
+				<attalias Sync="TRUE">Shape_Length</attalias>
+				<attrtype Sync="TRUE">Double</attrtype>
+				<attwidth Sync="TRUE">8</attwidth>
+				<atprecis Sync="TRUE">0</atprecis>
+				<attscale Sync="TRUE">0</attscale>
+			</attr>
+			<attr>
+				<attrlabl>Shape_Area</attrlabl>
+				<attrdef>Area of feature in internal units squared.</attrdef>
+				<attrdefs>ESRI</attrdefs>
+				<attrdomv>
+					<udom>Positive real numbers that are automatically generated.</udom>
+				</attrdomv>
+				<attalias Sync="TRUE">Shape_Area</attalias>
+				<attrtype Sync="TRUE">Double</attrtype>
+				<attwidth Sync="TRUE">8</attwidth>
+				<atprecis Sync="TRUE">0</atprecis>
+				<attscale Sync="TRUE">0</attscale>
+			</attr>
+		</detailed>
+	</eainfo>
+	<mdHrLvName Sync="TRUE">dataset</mdHrLvName>
+	<refSysInfo>
+		<RefSystem>
+			<refSysID>
+				<identCode Sync="TRUE" code="3424" />
+				<idCodeSpace Sync="TRUE">EPSG</idCodeSpace>
+				<idVersion Sync="TRUE">8.9.3(9.3.0.0)</idVersion>
+			</refSysID>
+		</RefSystem>
+	</refSysInfo>
+	<spatRepInfo>
+		<VectSpatRep>
+			<geometObjs Name="woodcock_hunting_zones">
+				<geoObjTyp>
+					<GeoObjTypCd Sync="TRUE" value="002" />
+				</geoObjTyp>
+				<geoObjCnt Sync="TRUE">9</geoObjCnt>
+			</geometObjs>
+			<topLvl>
+				<TopoLevCd Sync="TRUE" value="004" />
+			</topLvl>
+		</VectSpatRep>
+	</spatRepInfo>
+	<mdDateSt Sync="TRUE">20200805</mdDateSt>
+</metadata>
