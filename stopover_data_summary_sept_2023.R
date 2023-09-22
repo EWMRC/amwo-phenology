@@ -54,7 +54,7 @@ for (i in 1:length(ids)){
 }
 
 # categorizing loop (taken from bbpl code/adapted for amwo)
-# I don't think it's worth trying to make this run-length encoding thing in tidyverse becasue it depends on separating 
+# I don't think it's worth trying to make this run-length encoding thing in tidyverse because it depends on separating 
 # so many different objects.
 for (q in 1:length(brd)){
   tmp <- rle(brd[[q]]$stopover) # run length encoding based on distance, clusters by whether or not the next point is >16km away
@@ -64,6 +64,9 @@ for (q in 1:length(brd)){
     count[i] <- sum(tmp$lengths[1:i]) # count (number of points so far in the data frame) is there to be able to label clusters
   }
   lt <- data.frame(lengths=tmp$lengths,values=tmp$values, count=count, label=label) # makes a new table for each bird with information for assigning labels
+  #if (lt$values==0&lt$lengths>1){
+  #  
+  #}
   brd[[q]]$label <- c(1, rep(0, times=nrow(brd[[q]])-1)) # empty column in bird for cluster labels - starts with 1
   brd[[q]]$lengths <- c(1, rep(0, times=nrow(brd[[q]])-1))# empty column in bird data for lengths (amount of points in each cluster) -starts with 1
   if (nrow(lt)>1){
@@ -79,7 +82,7 @@ for (q in 1:length(brd)){
   for (h in 2:nrow(brd[[q]])){
     if (brd[[q]]$step[h-1]<16.1){
       brd[[q]]$label[h] <- brd[[q]]$label[h-1]
-    }
+   }
    }
   }
   # add class for each point 
@@ -122,8 +125,15 @@ lapply(brd[85:96], FUN=stopover_id_map)
 lapply(brd[98:109], FUN=stopover_id_map)
 lapply(brd[110:118], FUN=stopover_id_map)
 
-# example of recursive - NY-2018-06
-which(ids=='NY-2018-06') #11
-stopover_id_map(brd[[11]])
+# example of recursive 
+which(ids=='PA-2018-11') 
+stopover_id_map(brd[[2]])
+
+# list of birds to check:
+# ME-2018-08 (2)
+# NY-2018-04 (9)
+# NY-2018-06 (11)
 
 
+
+# Manual reclassifications of stopovers for birds that have the "recursive" stopovers
