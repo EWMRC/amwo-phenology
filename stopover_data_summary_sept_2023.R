@@ -31,7 +31,7 @@ summary(data$st.pr)  ##verify no NA for st.pr exist
 data$sex <- as.numeric(if_else(data$sex == 'm', 0, 1))  #males=0; female=1
 data$age <- as.numeric(if_else(data$age == 'juv', 0, 1))  #ad=1; juv=0
 ## done with data prep
-View(data)
+#View(data)
 
 # *********************** 02 Identify Stopovers ********************************
 
@@ -92,8 +92,11 @@ for (q in 1:length(brd)){
     brd[[q]]$class[is.na(brd[[q]]$class)] <- 'stop' # all others (points over 16km apart) are stops
   }
   
-  print(q) # completes 118 total birds
+ # print(q) # completes 118 total birds
 }
+
+
+# *********************** 03 Check/Reclassify ********************************
 
 # Leaflet map with stopover labels
 stopover_id_map<- function(x){
@@ -114,7 +117,7 @@ stopover_id_map<- function(x){
 } 
 
 stopover_id_map(brd[[1]])
-lapply(brd[1:12], FUN=stopover_id_map)
+lapply(brd[1:12], FUN=stopover_id_map) # these are split up just to make them easier to keep track of while checking
 lapply(brd[13:24], FUN=stopover_id_map)
 lapply(brd[25:36], FUN=stopover_id_map)
 lapply(brd[37:48], FUN=stopover_id_map)
@@ -127,13 +130,109 @@ lapply(brd[110:118], FUN=stopover_id_map)
 
 # example of recursive 
 which(ids=='PA-2018-11') 
-stopover_id_map(brd[[2]])
+stopover_id_map(brd[[90]])
 
-# list of birds to check:
+# list of birds to check (from Kylie):
 # ME-2018-08 (2)
 # NY-2018-04 (9)
 # NY-2018-06 (11)
+# RI-2018-11 (34) ***has 2 years of data, cut out 2019...
+# NY-2019-22 (55) # *** this one I'm going to actually leave as is bc just one terminal point
+# RI-2019-21 (88)
+# RI-2019-23 (89) # ***this one also leaving because it's more of a moving path overlapping a stopover
+# VA-2019-21 (96)
+
+### ones that weren't super weird but I wasn't sure about ***these we will roll with because there isn't really a better way to categorize them
+# NS-2019-03 (41) -- it looked like overlapping colors (dark blue   and purple) at first but I think they're actually all the same   (purple) because dark blue isn't in the label legend
+# VA-2018-01 (38) -- ending steps - 
+# NY-2019-31 (62) -- ending steps 
+
+# QUE-2019-13 (81) -- ending steps zig zag
+# RI-2019-24 (90) -- no overlap but the ending steps are odd
 
 
+# Manual reclassifications for birds that have the "recursive" stopovers (only 6 birds)
+# ME-2018-08
+brd[[2]]$label[which(brd[[2]]$label==10)] <- 8
+brd[[2]]$label[which(brd[[2]]$label==12)] <- 8
 
-# Manual reclassifications of stopovers for birds that have the "recursive" stopovers
+# NY-2018-04
+brd[[9]]$label[which(brd[[9]]$label==5)] <- 4
+brd[[9]]$label[which(brd[[9]]$label==6)] <- 4
+
+#NY-2018-06
+brd[[11]]$label[which(brd[[11]]$label==5)] <- 4
+brd[[11]]$label[which(brd[[11]]$label==6)] <- 4
+
+# RI-2018-11
+brd[[34]] <- brd[[34]][which(year(brd[[34]]$time)==2018),]
+
+# RI-2019-21
+brd[[88]]$label[which(brd[[88]]$label==6)] <- 4
+
+# VA-2019-21
+brd[[96]]$label[which(brd[[96]]$label==9)] <- 8
+brd[[96]]$label[which(brd[[96]]$label==10)] <- 8
+
+
+# ******************* 04 Stopover Data Calculations*****************************
+
+# Calculate stopover metrics
+# Create Metric table to fill in 
+# Loop to fill in first set of metrics 
+all_stopovers <- list()
+for (i in 1:length(brd)){ 
+    # Data frame for stops first (one point per stop)
+      tmp_stop <- brd[[i]][which(brd[[i]]$class=='stop'),]
+      tbl_stop <- data.frame(
+        id=tmp_stop$ID,
+        label=66:(66+(nrow(tmp_stop)-1)),
+        start_time = tmp_stop$time,
+        end_time = tmp_stop$time + 43200, # 12 hours later in seconds
+        admin_unit = tmp_stop$m.state,
+        start_lat = tmp_stop$lat,
+        start_lon = tmp_stop$lon,
+        end_lat = tmp_stop$lat, # start/end the same for stop
+        end_lon = tmp_stop$lon,
+        year=tmp_stop$m.year,
+        duration=rep(12, nrow(tmp_stop))
+      )
+    # Data frame for stopovers (more than 1 point per stop)
+    if (length(which(brd[[i]]$class=='stopover'))>0){
+      tmp <- brd[[i]][which(brd[[i]]$class=='stopover'),]
+      tbl_stopover <- matrix(NA, nrow=length(unique(tmp$label[which(tmp$class=='stopover')])), ncol=11) #add columns here
+      tbl_stopover <- data.frame(tbl_stopover)
+      names(tbl_stopover) <- c('id', 'label', 'start_time', 'end_time', 'admin_unit', 'start_lat', 'start_lon',
+                               'end_lat', 'end_lon', 'year', 'duration') #add column labels here
+      tbl_stopover$id <- rep(tmp$ID[1], times=nrow(tbl_stopover))
+      tbl_stopover$label <- unique(tmp$label)
+      for (p in 1:nrow(tbl_stopover)){ # anything else you want to calculate by individual stopover you put in here
+        yam <- tmp[which(tmp$label==tbl_stopover$label[p]),]
+          tbl_stopover$start_time[p] <- yam$time[1]
+          tbl_stopover$end_time[p] <- yam$time[nrow(yam)]
+          tbl_stopover$admin_unit[p] <- yam$m.state[1]
+          tbl_stopover$start_lat[p] <- yam$lat[1]
+          tbl_stopover$end_lat[p] <- yam$lat[nrow(yam)]
+          tbl_stopover$start_lon[p] <- yam$lon[1]
+          tbl_stopover$end_lon[p] <- yam$lon[nrow(yam)]
+          tbl_stopover$year[p] <- yam$m.year[1]
+        if (nrow(yam)>1){
+          tbl_stopover$duration[p] <- abs(difftime(yam$time[1], yam$time[nrow(yam)], tz="EST", units='hours'))}
+        else if (nrow(yam)==1){ 
+          tbl_stopover$duration[p] <- 12}
+      }}
+      tbl_stopover$start_time <- as_datetime(tbl_stopover$start_time) # for some reason this converts here but not above
+      tbl_stopover$end_time <- as_datetime(tbl_stopover$end_time) 
+      
+      all_stopovers[[i]] <- bind_rows(tbl_stop, tbl_stopover)
+      all_stopovers[[i]] <- all_stopovers[[i]] %>% arrange(end_time)
+      
+      #print(i) completes 118 total birds
+  }
+
+# Combine all into a data frame
+# This is 1 row for each stopover (id is bird id, label is stopover label)
+# duration is in hours
+fall_stopover_data <- bind_rows(all_stopovers)
+fall_stopover_data <- fall_stopover_data %>% rename(duration_hours = duration)
+save(fall_stopover_data, file='amwo_fall_stopover_phenology.rds')
