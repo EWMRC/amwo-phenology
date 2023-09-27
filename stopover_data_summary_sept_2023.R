@@ -5,6 +5,7 @@
 
 library(leaflet)
 library(tidyverse)
+library(sf)
 
 # ********************* 01 Read in original data *******************************
 # Alex's code for importing migration timing data
@@ -236,3 +237,14 @@ for (i in 1:length(brd)){
 fall_stopover_data <- bind_rows(all_stopovers)
 fall_stopover_data <- fall_stopover_data %>% rename(duration_hours = duration)
 save(fall_stopover_data, file='amwo_fall_stopover_phenology.rds')
+
+# ********************* 05 Reclassify Admin Units ******************************
+nj <- st_read(dsn='nj_hunting_zones', layer='nj_hunting_zones')
+qc <- st_read(dsn='quebec_hunting_zones', layer='quebec_hunting_zones')
+ont <- st_read(dsn='ontario_hunting_zones', layer='Wildlife_Management_Unit')
+
+plot(nj$geometry)
+plot(qc$geometry)
+plot(ont$geometry)
+
+# is ontario still weird
