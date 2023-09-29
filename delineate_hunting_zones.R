@@ -23,7 +23,7 @@ nj_grouped <- nj %>%
 
 st_write(nj_grouped, "nj_hunting_zones/nj_hunting_zones_revised.shp")
 
-qc <- st_read(dsn='quebec_hunting_zones', layer='quebec_hunting_zones')
+qc <- st_read(dsn='quebec_hunting_zones', layer='quebec_hunting_zones_5070')
 
 qc <- qc %>% 
   mutate(district_name = case_when(DISTRICT == "A" ~ "Quebec - District A",
