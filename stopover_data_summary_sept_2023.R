@@ -242,9 +242,12 @@ fall_stopover_data <- fall_stopover_data %>% rename(duration_hours = duration)
 save(fall_stopover_data, file='amwo_fall_stopover_phenology.rds')
 
 # ********************* 05 Reclassify Admin Units ******************************
+
 nj <- st_read(dsn='nj_hunting_zones', layer='nj_hunting_zones_revised')
 qc <- st_read(dsn='quebec_hunting_zones', layer='quebec_hunting_zones_revised_2')
 ont <- st_read(dsn='ontario_hunting_zones', layer='ontario_hunting_zones')
+
+par(mfrow=c(1,1))
 
 plot(nj$geometry)
 plot(qc$geometry)
@@ -255,9 +258,9 @@ qc_crs <- crs(qc)
 ont_crs <- crs(ont)
 
 done <- fall_stopover_data[which(fall_stopover_data$admin_unit%in%c('QUE','ONT','NJ')==F),]
-qc_amwo <- fall_stopover_data[which(fall_stopover_data$admin_unit%in%c('QUE')==T),]
-ont_amwo <- fall_stopover_data[which(fall_stopover_data$admin_unit%in%c('ONT')==T),]
-nj_amwo <- fall_stopover_data[which(fall_stopover_data$admin_unit%in%c('NJ')==T),]
+qc_amwo <- fall_stopover_data[which(fall_stopover_data$admin_unit=='QUE'),]
+ont_amwo <- fall_stopover_data[which(fall_stopover_data$admin_unit=='ONT'),]
+nj_amwo <- fall_stopover_data[which(fall_stopover_data$admin_unit=='NJ'),]
 
 qc_sf <- st_as_sf(qc_amwo, coords=c('start_lon', 'start_lat'))
 st_crs(qc_sf) <- 4326
@@ -276,12 +279,25 @@ plot(nj_sf$geometry, add=T)
 plot(ont$geometry)
 plot(ont_sf$geometry, add=T)
 
+# add new jersey district labels
 NJ_North <- st_filter(nj_sf, nj[which(nj$dstrct_=='New Jersey (North Zone)'),])
-plot(nj$geometry)
-plot(test$geometry, add=T)
+nj_sf$admin_unit[which(nj_sf$geometry%in%NJ_North$geometry==T)] <- 'New Jersey (North Zone)'
+nj_sf$admin_unit[which(nj_sf$geometry%in%NJ_North$geometry==F)] <- 'New Jersey (South Zone)'
+unique(nj_sf$admin_unit) # worked
+
+# add ontario district labels
+ggplot(ont)+
+  geom_sf(aes(fill=dstrct_))
+ONT_north <- st_filter(ont_sf, ont[which(ont$dstrct_=='Ontario'),])
+ONT_H <- st_filter(ont_sf, ont[which(ont$dstrct_=='Ontario - Southern District H'),])
+ont_sf$admin_unit[which(ont_sf$geometry%in%ONT_north$geometry==T)] <- 'Ontario'
+ont_sf$admin_unit[which(ont_sf$geometry%in%ONT_H$geometry==T)] <- 'Ontario - Southern District H'
+ont_sf$admin_unit[which(ont_sf$geometry%in%c(ONT_H$geometry, ONT_north$geometry)==F)] <- 'Ontario Southern District I'
+unique(ont_sf$admin_unit) #worked
+
+
 
 # make one spatial dataset for amwo hunting zones
-# "We do things not because it will be easy, but because we think it will be easy"
 
 # get usa and canada from rnaturalearth package
 usa<-vect(ne_states(country="United States of America",returnclass="sf"))
@@ -305,7 +321,7 @@ crs_usa <- crs(usa)
 
 # transform data
 nj <- st_transform(nj, crs_usa)
-st_crs(qc) <- 4326
+st_crs(qc) <- 19944
 qc <- st_transform(qc, crs_usa) 
 ont <- st_transform(ont, crs_usa)
 
