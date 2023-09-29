@@ -35,7 +35,7 @@ qc_grouped <- qc %>%
   group_by(district_name) %>% 
   summarise()
 
-st_write(nj_grouped, "quebec_hunting_zones/quebec_hunting_zones_revised.shp")
+st_write(qc_grouped, "quebec_hunting_zones/quebec_hunting_zones_revised_2.shp")
 
 ont <- st_read(dsn='ontario_hunting_zones', layer='Wildlife_Management_Unit')
 

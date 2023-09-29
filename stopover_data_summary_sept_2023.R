@@ -6,6 +6,9 @@
 library(leaflet)
 library(tidyverse)
 library(sf)
+library(terra)
+library(rnaturalearth)
+
 
 # ********************* 01 Read in original data *******************************
 # Alex's code for importing migration timing data
@@ -211,7 +214,7 @@ for (i in 1:length(brd)){
         yam <- tmp[which(tmp$label==tbl_stopover$label[p]),]
           tbl_stopover$start_time[p] <- yam$time[1]
           tbl_stopover$end_time[p] <- yam$time[nrow(yam)]
-          tbl_stopover$admin_unit[p] <- yam$m.state[1]
+          tbl_stopover$admin_unit[p] <- yam$st.pr[1]
           tbl_stopover$start_lat[p] <- yam$lat[1]
           tbl_stopover$end_lat[p] <- yam$lat[nrow(yam)]
           tbl_stopover$start_lon[p] <- yam$lon[1]
@@ -239,12 +242,75 @@ fall_stopover_data <- fall_stopover_data %>% rename(duration_hours = duration)
 save(fall_stopover_data, file='amwo_fall_stopover_phenology.rds')
 
 # ********************* 05 Reclassify Admin Units ******************************
-nj <- st_read(dsn='nj_hunting_zones', layer='nj_hunting_zones')
-qc <- st_read(dsn='quebec_hunting_zones', layer='quebec_hunting_zones')
-ont <- st_read(dsn='ontario_hunting_zones', layer='Wildlife_Management_Unit')
+nj <- st_read(dsn='nj_hunting_zones', layer='nj_hunting_zones_revised')
+qc <- st_read(dsn='quebec_hunting_zones', layer='quebec_hunting_zones_revised_2')
+ont <- st_read(dsn='ontario_hunting_zones', layer='ontario_hunting_zones')
 
 plot(nj$geometry)
 plot(qc$geometry)
 plot(ont$geometry)
 
-# is ontario still weird
+nj_crs <- crs(nj)
+qc_crs <- crs(qc)
+ont_crs <- crs(ont)
+
+done <- fall_stopover_data[which(fall_stopover_data$admin_unit%in%c('QUE','ONT','NJ')==F),]
+qc_amwo <- fall_stopover_data[which(fall_stopover_data$admin_unit%in%c('QUE')==T),]
+ont_amwo <- fall_stopover_data[which(fall_stopover_data$admin_unit%in%c('ONT')==T),]
+nj_amwo <- fall_stopover_data[which(fall_stopover_data$admin_unit%in%c('NJ')==T),]
+
+qc_sf <- st_as_sf(qc_amwo, coords=c('start_lon', 'start_lat'))
+st_crs(qc_sf) <- 4326
+qc_sf <- st_transform(qc_sf, qc_crs)
+ont_sf <- st_as_sf(ont_amwo, coords=c('start_lon', 'start_lat'))
+st_crs(ont_sf) <- 4326
+ont_sf <- st_transform(ont_sf, ont_crs)
+nj_sf <- st_as_sf(nj_amwo, coords=c('start_lon', 'start_lat'))
+st_crs(nj_sf) <- 4326
+nj_sf <- st_transform(nj_sf, nj_crs)
+
+# skip QC for now bc it sucks
+plot(nj$geometry)
+plot(nj_sf$geometry, add=T)
+
+plot(ont$geometry)
+plot(ont_sf$geometry, add=T)
+
+NJ_North <- st_filter(nj_sf, nj[which(nj$dstrct_=='New Jersey (North Zone)'),])
+plot(nj$geometry)
+plot(test$geometry, add=T)
+
+# make one spatial dataset for amwo hunting zones
+# "We do things not because it will be easy, but because we think it will be easy"
+
+# get usa and canada from rnaturalearth package
+usa<-vect(ne_states(country="United States of America",returnclass="sf"))
+can<-vect(ne_states(country="Canada",returnclass="sf"))
+amwoext=ext(-95,-60,26,50)
+usa <- crop(usa,amwoext) 
+can <- crop(can, amwoext)
+plot(can)
+plot(usa, add=T)
+
+usa <-st_as_sf(usa) %>% # convert to sf, get rid of new jersey
+  filter(name != 'New Jersey') %>%
+  select('geometry', 'name') %>%
+  rename(dstrct_=name)
+can <- st_as_sf(can) %>% # convert to sf, get rid of quebec and ontario
+  filter(name != "Québec", name !="Ontario" ) %>%
+  select('geometry', 'name') %>%
+  rename(dstrct_=name)
+
+crs_usa <- crs(usa)
+
+# transform data
+nj <- st_transform(nj, crs_usa)
+st_crs(qc) <- 4326
+qc <- st_transform(qc, crs_usa) 
+ont <- st_transform(ont, crs_usa)
+
+zones <- bind_rows(usa,can, nj, ont, qc) # projection problems still :(
+
+
+plot(zones)
+plot(qc)
