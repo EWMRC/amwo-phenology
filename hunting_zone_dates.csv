@@ -1,0 +1,33 @@
+admin_unit,open,close,reopen,reclose
+A,9/1,12/16,NA,NA
+B,9/12,12/26,NA,NA
+C,9/19,12/26,NA,NA
+D,9/19,12/26,NA,NA
+E,9/19,12/26,NA,NA
+F,9/19,12/26,NA,NA
+G,9/26,12/26,NA,NA
+Vermont,10/1,11/14,NA,NA
+Maine,10/1,11/21,NA,NA
+Ontario,9/15,12/16,NA,NA
+Ontario - Southern District H,9/15,12/20,NA,NA
+ Ontario - Southern District I,9/25,12/20,NA,NA
+Nova Scotia,10/1,11/30,NA,NA
+New Hampshire,10/1,11/14,NA,NA
+New York,10/1,11/14,NA,NA
+Michigan,9/25,11/8,NA,NA
+Massachusetts,10/1,11/21,NA,NA
+Rhode Island,10/17,11/30,NA,NA
+Connecticut,10/21,11/14,11/17,12/12
+Pennsylvania,10/17,11/27,12/14,12/23
+Indiana,10/15,11/28,NA,NA
+Ohio,10/10,11/23,NA,NA
+New Jersey (North Zone),10/17,10/31,11/3,11/28
+New Jersey (South Zone),11/7,12/1,12/17,1/2
+West Virginia,10/15,11/19,11/28,12/6
+Delaware,11/23,11/28,12/5,1/19
+Maryland,10/21,11/27,1/11,1/23
+Kentucky,10/24,11/13,11/16,12/9
+Virginia,11/7,11/30,12/24,1/13
+Illinois,10/17,11/30,NA,NA
+Tennessee,11/14,12/6,1/10,1/31
+North Carolina,12/10,1/30,NA,NA
