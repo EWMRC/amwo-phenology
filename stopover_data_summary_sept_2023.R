@@ -55,7 +55,7 @@ birds <- birds %>% mutate(stopover=if_else(step<stop_dist, 1, 0))
 # then separate into brd list, this time complete with both distance and stop threshold info
 ids <- unique(birds$ID) 
 brd <- list()
-for (i in 1:length(ids)){
+for (i in 1:length(ids)){ # Liam note- Sarah, there's this fun function called "nest"
   brd[[i]] <- birds[which(birds$ID==ids[i]),]
 }
 
@@ -297,7 +297,6 @@ head(zones)
 ggplot(zones)+
   geom_sf(aes(fill=admin_unit))
 
-
 amwo_sf <- st_as_sf(fall_stopover_data, coords=c('start_lon', 'start_lat'), remove=F) 
 st_crs(amwo_sf) <- 4326
 amwo_sf <- st_transform(amwo_sf, crs_usa)
@@ -313,38 +312,48 @@ head(amwo_sf)
 fall_stopovers <- amwo_sf %>%
   select(!admin_unit.x) %>%
   rename(admin_unit=admin_unit.y) %>%
-  st_drop_geometry()
+  st_drop_geometry() %>% 
+  filter(!is.na(admin_unit))
 
-#save(fall_stopovers, file='amwo_fall_stopover_phenology_with_zones.rds')
-
+## Add the zone dates
 # ABCDEF are the quebec ones - to match fall_stopover df
 zone_dates <- read.csv('hunting_zone_dates.csv')
 head(zone_dates)
 
-zone_dates$open <- as_date(zone_dates$open, format='%m/%d')
-zone_dates$close <- as_date(zone_dates$close, format='%m/%d')
-zone_dates$reopen <- as_date(zone_dates$reopen, format='%m/%d')
-zone_dates$reclose <- as_date(zone_dates$reclose, format='%m/%d')
-zone_dates <- zone_dates %>%
-  mutate(yday_open=yday(open),
-         yday_close=yday(close),
-         yday_reopen=yday(reopen),
-         yday_reclose=yday(reclose))
-
-fall_stopovers$yearless_date <- format(fall_stopovers$start_time, format='%m/%d')
-fall_stopovers$yearless_date <- as_date(fall_stopovers$yearless_date, format='%m/%d')
-fall_stopovers <- fall_stopovers %>%
-  mutate(yday_start=yday(fall_stopovers$start_time),
-         yday_end=yday(fall_stopovers$end_time)) %>%
-  left_join(., zone_dates, by='admin_unit')
-
-head(fall_stopovers)
+zone_dates$open <- as_date(zone_dates$open, format='%m/%d/%Y')
+zone_dates$close <- as_date(zone_dates$close, format='%m/%d/%Y')
+zone_dates$reopen <- as_date(zone_dates$reopen, format='%m/%d/%Y')
+zone_dates$reclose <- as_date(zone_dates$reclose, format='%m/%d/%Y')
 
 
+zone_dates_revised <- zone_dates %>% 
+  mutate(admin_unit = factor(admin_unit, levels = base::rev(c("A", "B", "C", "D", "E", "F", "G", "Ontario", "Ontario - Southern District H", "Ontario - Southern District I", "Nova Scotia", "Maine", "Vermont", "New Hampshire", "Michigan", "New York", "Massachusetts", "Connecticut", 
+                                                              "Rhode Island", "Pennsylvania", "New Jersey (North Zone)", "New Jersey (South Zone)", "Indiana", "Ohio", "West Virginia", "Delaware", "Maryland", "District of Columbia", "Kentucky", "Virginia", "Illinois", "Tennessee",
+                                                              "North Carolina", "Arkansas", "South Carolina", "Georgia", "Alabama", "Mississippi", "Louisiana", "Florida", "Texas")), ordered = TRUE))
+## reformat the fall stopovers to make it easier to graph
 
-sub <- fall_stopovers[which(is.na(fall_stopovers$yday_open)==F),] # subset of only places we had hunting informationf for
+#fall_stopovers$yearless_date <- format(fall_stopovers$start_time, format='%m/%d')
 
-save(fall_stopovers, file='fall_stopover_plot_data_100623.rds')
+fall_stopovers <- fall_stopovers %>% 
+  mutate(yearless_date = case_match(month(start_time),
+                                    1:6 ~ 2024,
+                                    .default = 2023
+  )) %>% 
+  mutate(yearless_date = mdy(paste0(month(start_time), "/", day(start_time), "/", yearless_date))) %>% 
+  mutate(admin_unit = factor(admin_unit, levels = base::rev(c("A", "B", "C", "D", "E", "F", "G", "Ontario", "Ontario - Southern District H", "Ontario - Southern District I", "Nova Scotia", "Maine", "Vermont", "New Hampshire", "Michigan", "New York", "Massachusetts", "Connecticut", 
+                                                              "Rhode Island", "Pennsylvania", "New Jersey (North Zone)", "New Jersey (South Zone)", "Indiana", "Ohio", "West Virginia", "Delaware", "Maryland", "District of Columbia", "Kentucky", "Virginia", "Illinois", "Tennessee",
+                                                              "North Carolina", "Arkansas", "South Carolina", "Georgia", "Alabama", "Mississippi", "Louisiana", "Florida", "Texas")), ordered = TRUE))
+
+#fall_stopovers$yearless_date <- as_date(fall_stopovers$yearless_date, format='%m/%d')
+
+# fall_stopovers <- fall_stopovers %>%
+#   mutate(yday_start=yday(fall_stopovers$start_time),
+#          yday_end=yday(fall_stopovers$end_time)) %>%
+#   left_join(., zone_dates, by='admin_unit')
+
+#sub <- fall_stopovers[which(is.na(fall_stopovers$yday_open)==F),] # subset of only places we had hunting informationf for
+
+saveRDS(fall_stopovers, file='fall_stopover_plot_data_100623.rds')
 
 # ************************ 06 Add plot *****************************************
 
@@ -352,115 +361,149 @@ fall_stopovers <- readRDS('fall_stopover_plot_data_100623.rds')
 
 # remake Alex's "mig.boxplot2" from AMWO_CH1_Code script
 
+## Liam's revised version of Sarah's revised version of this graph
+
+# Retrieve a color pallete
+nb.cols <- nlevels(as.factor(fall_stopovers$admin_unit))
+mycolors <- colorRampPalette(brewer.pal(8, "Dark2"))(nb.cols)
+
+
+ggplot(fall_stopovers, aes(x = yearless_date, y = admin_unit)) +
+  geom_crossbar(data = zone_dates_revised, 
+                aes(x = open, 
+                    y = admin_unit, 
+                    xmin = open,
+                    xmax= close), fill='gray', color = 'gray') +
+  geom_crossbar(data = zone_dates_revised,
+                aes(x = open, 
+                    y = admin_unit, 
+                    xmin = reopen,
+                    xmax= reclose), fill='gray', color = 'gray') +
+  geom_boxplot(aes(fill = admin_unit), alpha = 0.7) +
+  geom_point(position=position_jitter(width=0.15, height=0.25),
+             size=0.25) +
+  theme_bw() +
+  scale_fill_manual(values=mycolors) +
+  theme(legend.position = "none") +
+  theme(plot.title = element_text(size = 20, face = "bold", hjust = 0.5), 
+        axis.title.x = element_text(size = 12),
+        axis.title.y = element_text(size = 12)) +
+  labs(y = "Stopover timing", x = "State/Province") +
+  scale_y_discrete(limits = base::rev(c("A", "B", "C", "D", "E", "F", "G", "Ontario", "Ontario - Southern District H", "Ontario - Southern District I", "Nova Scotia", "Maine", "Vermont", "New Hampshire", "Michigan", "New York", "Massachusetts", "Connecticut", 
+                              "Rhode Island", "Pennsylvania", "New Jersey (North Zone)", "New Jersey (South Zone)", "Indiana", "Ohio", "West Virginia", "Delaware", "Maryland", "District of Columbia", "Kentucky", "Virginia", "Illinois", "Tennessee",
+                              "North Carolina", "Arkansas", "South Carolina", "Georgia", "Alabama", "Mississippi", "Louisiana", "Florida", "Texas")))
+
+
+
 # admin_unit is administrative unit that I pulled
 # st.pr is from alex's original (I think)
 # it looks like they're pretty much the same
  
-data <- fall_stopovers
+# data <- fall_stopovers
 #data <-sub
 
-data <- data %>%
-  mutate(index=as.numeric(as.factor(admin_unit)),
-         admin_unit=as.factor(admin_unit),
-         st.pr=as.factor(st.pr))
+# data <- data %>%
+#   mutate(index=as.numeric(as.factor(admin_unit)),
+#          admin_unit=as.factor(admin_unit),
+#          st.pr=as.factor(st.pr))
 # january isn't cooperating so we're just changing the year (sorry Liam if you don't like this piece of code)
-data$yearless_date[which(data$yearless_date<as.Date('0000-02-01'))] <- 
-  data$yearless_date[which(data$yearless_date<as.Date('0000-02-01'))] %m+% years(1)
+# data$yearless_date[which(data$yearless_date<as.Date('0000-02-01'))] <- 
+#   data$yearless_date[which(data$yearless_date<as.Date('0000-02-01'))] %m+% years(1)
 
 
-length(unique(data$st.pr)) # without extra NJ, ONT, and QC zones
-length(unique(data$admin_unit)) # with extra NJ, ONT, and QC Zones
-
-xlabs <- as.character(unique(reorder(data$admin_unit, data$start_lat))) # this doesn't put them in the right order
-
-nb.cols <- nlevels(as.factor(data$admin_unit))
-## stretch the 'Dark2' pallette into that number of colors
-mycolors <- colorRampPalette(brewer.pal(8, "Dark2"))(nb.cols)
-
-# what it looks like without the boxes, and admin unit as a factor
-# letters by themselves are QC
-mig.boxplot2 <- ggplot () +
-  geom_boxplot(data=data, aes(x = reorder(admin_unit,start_lat), 
-                              #y = as.Date(yday_start, origin = "2019-10-01"),
-                              y=as.Date(yearless_date),
-                              fill = reorder(admin_unit,start_lat)), outlier.shape=NA) +
-  geom_point(data=data, aes(x = reorder(admin_unit,start_lat), # '-' before lat
-                            # y = as.Date(yday_start, origin = "2019-10-01")),
-                            y=as.Date(yearless_date)),
-             position=position_jitter(width=0.15, height=3),
-             size=0.25) +
-  scale_fill_manual(values=mycolors) +
-  scale_y_date(limits=c(as.Date('0000-10-01'), as.Date('0001-01-15')))+ # this worked? or did it cut off jan?
-  
-  coord_flip() +
-  theme_classic() +
-  theme(legend.position = "none") +
-  theme(plot.title = element_text(size = 20, face = "bold", hjust = 0.5), 
-        axis.title.x = element_text(size = 12),
-        axis.title.y = element_text(size = 12)) +
-  labs(y = "Stopover timing", x = "State/Province")
-mig.boxplot2
-
-# Modified Plot (with hunting season boxes, where we have the data in table 5)
-# Boxes don't want to work unless x is numeric....
-mig.boxplot2 <- ggplot (data, group=admin_unit) +
-  geom_rect(data=data, aes(xmin=reorder(as.numeric(admin_unit), start_lat),
-                           xmax=reorder(as.numeric(admin_unit)+0.3, start_lat),
-                          # ymin = as.Date(yday_open, origin = "2019-10-01"), # changing these doesn't do anything
-                          # ymax= as.Date(yday_close, origin = "2019-10-01")
-                           ymin = as.Date(open),
-                           ymax= as.Date(close)
-  ), fill='gray')+
-  
-  geom_rect(data=data, aes(xmin=reorder(as.numeric(admin_unit), start_lat),
-                           xmax=reorder(as.numeric(admin_unit)+0.3, start_lat),
-                         #  ymin = as.Date(yday_reopen, origin = "2019-10-01"), 
-                         #  ymax= as.Date(yday_reclose, origin = "2019-10-01")
-                           ymin = as.Date(reopen),
-                           ymax= as.Date(reclose)
-  ), fill='gray')+
-  geom_boxplot(data=data, aes(x = reorder(as.numeric(admin_unit),start_lat), 
-                              #y = as.Date(yday_start, origin = "2019-10-01"),
-                              y=as.Date(yearless_date),
-                              fill = reorder(as.numeric(admin_unit),start_lat)), outlier.shape=NA) +
-  geom_point(data=data, aes(x = reorder(as.numeric(admin_unit),start_lat), # '-' before lat
-                           # y = as.Date(yday_start, origin = "2019-10-01")),
-                           y=as.Date(yearless_date)),
-             position=position_jitter(width=0.15, height=3),
-             size=0.25) +
-  scale_fill_manual(values=mycolors) +
-  scale_y_date(limits=c(as.Date('0000-10-01'), as.Date('0001-01-15')))+ # this worked? or did it cut off jan?
- 
-  coord_flip() +
-  theme_classic() +
-  theme(legend.position = "none") +
-  theme(plot.title = element_text(size = 20, face = "bold", hjust = 0.5), 
-        axis.title.x = element_text(size = 12),
-        axis.title.y = element_text(size = 12)) +
-  labs(y = "Stopover timing", x = "State/Province")
-mig.boxplot2
-
+# length(unique(data$st.pr)) # without extra NJ, ONT, and QC zones
+# length(unique(data$admin_unit)) # with extra NJ, ONT, and QC Zones
+# 
+# xlabs <- as.character(unique(reorder(data$admin_unit, data$start_lat))) # this doesn't put them in the right order
+# 
+# nb.cols <- nlevels(as.factor(data$admin_unit))
+# ## stretch the 'Dark2' pallette into that number of colors
+# mycolors <- colorRampPalette(brewer.pal(8, "Dark2"))(nb.cols)
+# 
+# # what it looks like without the boxes, and admin unit as a factor
+# # letters by themselves are QC
+# mig.boxplot2 <- ggplot () +
+#   geom_boxplot(data=data, aes(x = reorder(admin_unit,start_lat), 
+#                               #y = as.Date(yday_start, origin = "2019-10-01"),
+#                               y=as.Date(yearless_date),
+#                               fill = reorder(admin_unit,start_lat)), outlier.shape=NA) +
+#   geom_point(data=data, aes(x = reorder(admin_unit,start_lat), # '-' before lat
+#                             # y = as.Date(yday_start, origin = "2019-10-01")),
+#                             y=as.Date(yearless_date)),
+#              position=position_jitter(width=0.15, height=3),
+#              size=0.25) +
+#   scale_fill_manual(values=mycolors) +
+#   scale_y_date(limits=c(as.Date('0000-10-01'), as.Date('0001-01-15')))+ # this worked? or did it cut off jan?
+#   
+#   coord_flip() +
+#   theme_classic() +
+#   theme(legend.position = "none") +
+#   theme(plot.title = element_text(size = 20, face = "bold", hjust = 0.5), 
+#         axis.title.x = element_text(size = 12),
+#         axis.title.y = element_text(size = 12)) +
+#   labs(y = "Stopover timing", x = "State/Province")
+# mig.boxplot2
+# 
+# # Modified Plot (with hunting season boxes, where we have the data in table 5)
+# # Boxes don't want to work unless x is numeric....
+# mig.boxplot2 <- ggplot (data, group=admin_unit) +
+#   geom_rect(data=data, aes(xmin=reorder(as.numeric(admin_unit), start_lat),
+#                            xmax=reorder(as.numeric(admin_unit)+0.3, start_lat),
+#                           # ymin = as.Date(yday_open, origin = "2019-10-01"), # changing these doesn't do anything
+#                           # ymax= as.Date(yday_close, origin = "2019-10-01")
+#                            ymin = as.Date(open),
+#                            ymax= as.Date(close)
+#   ), fill='gray')+
+#   
+#   geom_rect(data=data, aes(xmin=reorder(as.numeric(admin_unit), start_lat),
+#                            xmax=reorder(as.numeric(admin_unit)+0.3, start_lat),
+#                          #  ymin = as.Date(yday_reopen, origin = "2019-10-01"), 
+#                          #  ymax= as.Date(yday_reclose, origin = "2019-10-01")
+#                            ymin = as.Date(reopen),
+#                            ymax= as.Date(reclose)
+#   ), fill='gray')+
+#   geom_boxplot(data=data, aes(x = reorder(as.numeric(admin_unit),start_lat), 
+#                               #y = as.Date(yday_start, origin = "2019-10-01"),
+#                               y=as.Date(yearless_date),
+#                               fill = reorder(as.numeric(admin_unit),start_lat)), outlier.shape=NA) +
+#   geom_point(data=data, aes(x = reorder(as.numeric(admin_unit),start_lat), # '-' before lat
+#                            # y = as.Date(yday_start, origin = "2019-10-01")),
+#                            y=as.Date(yearless_date)),
+#              position=position_jitter(width=0.15, height=3),
+#              size=0.25) +
+#   scale_fill_manual(values=mycolors) +
+#   scale_y_date(limits=c(as.Date('0000-10-01'), as.Date('0001-01-15')))+ # this worked? or did it cut off jan?
+#  
+#   coord_flip() +
+#   theme_classic() +
+#   theme(legend.position = "none") +
+#   theme(plot.title = element_text(size = 20, face = "bold", hjust = 0.5), 
+#         axis.title.x = element_text(size = 12),
+#         axis.title.y = element_text(size = 12)) +
+#   labs(y = "Stopover timing", x = "State/Province")
+# mig.boxplot2
+# 
 
 
 
 # Alex's original plot
-mig.boxplot2 <- ggplot () +
-  geom_boxplot(data=data, aes(x = reorder(as.factor(st.pr),lat), 
-                              y = as.Date(time.ord, origin = "2019-10-01"), 
-                              fill = reorder(as.factor(st.pr),lat)), outlier.shape=NA) +
-  geom_point(data=data, aes(x = reorder(as.factor(st.pr),lat), # '-' before lat
-                            y = as.Date(time.ord, origin = "2019-10-01")),
-             position=position_jitter(width=0.15, height=3),
-             size=0.25) +
-  scale_fill_manual(values=mycolors) +
-  #scale_fill_manual(values = c("lightblue1", "lightblue", "aliceblue", "lightskyblue2", "lightcyan", 
-  #                             "skyblue2", "skyblue3", "paleturquoise1", "steelblue4")) +
-  coord_flip() +
-  theme_classic() +
-  theme(legend.position = "none") +
-  theme(plot.title = element_text(size = 20, face = "bold", hjust = 0.5), 
-        axis.title.x = element_text(size = 12),
-        axis.title.y = element_text(size = 12)) +
-  labs(y = "Stopover timing", x = "State/Province")
-mig.boxplot2
+# mig.boxplot2 <- ggplot () +
+#   geom_boxplot(data=data, aes(x = reorder(as.factor(st.pr),lat), 
+#                               y = as.Date(time.ord, origin = "2019-10-01"), 
+#                               fill = reorder(as.factor(st.pr),lat)), outlier.shape=NA) +
+#   geom_point(data=data, aes(x = reorder(as.factor(st.pr),lat), # '-' before lat
+#                             y = as.Date(time.ord, origin = "2019-10-01")),
+#              position=position_jitter(width=0.15, height=3),
+#              size=0.25) +
+#   scale_fill_manual(values=mycolors) +
+#   #scale_fill_manual(values = c("lightblue1", "lightblue", "aliceblue", "lightskyblue2", "lightcyan", 
+#   #                             "skyblue2", "skyblue3", "paleturquoise1", "steelblue4")) +
+#   coord_flip() +
+#   theme_classic() +
+#   theme(legend.position = "none") +
+#   theme(plot.title = element_text(size = 20, face = "bold", hjust = 0.5), 
+#         axis.title.x = element_text(size = 12),
+#         axis.title.y = element_text(size = 12)) +
+#   labs(y = "Stopover timing", x = "State/Province")
+# mig.boxplot2
 
