@@ -76,20 +76,20 @@ for (q in 1:length(brd)){
   brd[[q]]$label <- c(1, rep(0, times=nrow(brd[[q]])-1)) # empty column in bird for cluster labels - starts with 1
   brd[[q]]$lengths <- c(1, rep(0, times=nrow(brd[[q]])-1))# empty column in bird data for lengths (amount of points in each cluster) -starts with 1
   if (nrow(lt)>1){
-  for (j in 2:nrow(lt)){
-    brd[[q]]$label[(lt$count[j-1]+1):lt$count[j]] <- lt$label[j] # give consecutive labels to each cluster
-    brd[[q]]$lengths[(lt$count[j-1]+1):lt$count[j]] <- lt$lengths[j] # add the amount of points within the same cluster as each point to the data
-  }}
+    for (j in 2:nrow(lt)){
+      brd[[q]]$label[(lt$count[j-1]+1):lt$count[j]] <- lt$label[j] # give consecutive labels to each cluster
+      brd[[q]]$lengths[(lt$count[j-1]+1):lt$count[j]] <- lt$lengths[j] # add the amount of points within the same cluster as each point to the data
+    }}
   
   brd[[q]]$class <- rep(NA, nrow(brd[[q]])) # empty column for class
   
   # this bit applies a distance rule to the back end - might not be necessary for Alex's analysis
   if(nrow(lt)>1){
-  for (h in 2:nrow(brd[[q]])){
-    if (brd[[q]]$step[h-1]<16.1){
-      brd[[q]]$label[h] <- brd[[q]]$label[h-1]
-   }
-   }
+    for (h in 2:nrow(brd[[q]])){
+      if (brd[[q]]$step[h-1]<16.1){
+        brd[[q]]$label[h] <- brd[[q]]$label[h-1]
+      }
+    }
   }
   # add class for each point 
   # need  to do these in order!
@@ -98,7 +98,7 @@ for (q in 1:length(brd)){
     brd[[q]]$class[is.na(brd[[q]]$class)] <- 'stop' # all others (points over 16km apart) are stops
   }
   
- # print(q) # completes 118 total birds
+  # print(q) # completes 118 total birds
 }
 
 
@@ -188,55 +188,55 @@ brd[[96]]$label[which(brd[[96]]$label==10)] <- 8
 # Loop to fill in first set of metrics 
 all_stopovers <- list()
 for (i in 1:length(brd)){ 
-    # Data frame for stops first (one point per stop)
-      tmp_stop <- brd[[i]][which(brd[[i]]$class=='stop'),]
-      tbl_stop <- data.frame(
-        id=tmp_stop$ID,
-        label=66:(66+(nrow(tmp_stop)-1)),
-        start_time = tmp_stop$time,
-        end_time = tmp_stop$time + 43200, # 12 hours later in seconds
-        admin_unit = tmp_stop$m.state,
-        start_lat = tmp_stop$lat,
-        start_lon = tmp_stop$lon,
-        end_lat = tmp_stop$lat, # start/end the same for stop
-        end_lon = tmp_stop$lon,
-        year=tmp_stop$m.year,
-        st.pr=tmp_stop$st.pr,
-        duration=rep(12, nrow(tmp_stop))
-      )
-    # Data frame for stopovers (more than 1 point per stop)
-    if (length(which(brd[[i]]$class=='stopover'))>0){
-      tmp <- brd[[i]][which(brd[[i]]$class=='stopover'),]
-      tbl_stopover <- matrix(NA, nrow=length(unique(tmp$label[which(tmp$class=='stopover')])), ncol=11) #add columns here
-      tbl_stopover <- data.frame(tbl_stopover)
-      names(tbl_stopover) <- c('id', 'label', 'start_time', 'end_time', 'admin_unit', 'start_lat', 'start_lon',
-                               'end_lat', 'end_lon', 'year', 'duration') #add column labels here
-      tbl_stopover$id <- rep(tmp$ID[1], times=nrow(tbl_stopover))
-      tbl_stopover$label <- unique(tmp$label)
-      for (p in 1:nrow(tbl_stopover)){ # anything else you want to calculate by individual stopover you put in here
-        yam <- tmp[which(tmp$label==tbl_stopover$label[p]),]
-          tbl_stopover$start_time[p] <- yam$time[1]
-          tbl_stopover$end_time[p] <- yam$time[nrow(yam)]
-          tbl_stopover$admin_unit[p] <- NA # ignore this until later
-          tbl_stopover$start_lat[p] <- yam$lat[1]
-          tbl_stopover$end_lat[p] <- yam$lat[nrow(yam)]
-          tbl_stopover$start_lon[p] <- yam$lon[1]
-          tbl_stopover$end_lon[p] <- yam$lon[nrow(yam)]
-          tbl_stopover$year[p] <- yam$m.year[1]
-          tbl_stopover$st.pr[p] <- yam$st.pr[1]
-        if (nrow(yam)>1){
-          tbl_stopover$duration[p] <- abs(difftime(yam$time[1], yam$time[nrow(yam)], tz="EST", units='hours'))}
-        else if (nrow(yam)==1){ 
-          tbl_stopover$duration[p] <- 12}
-      }}
-      tbl_stopover$start_time <- as_datetime(tbl_stopover$start_time) # for some reason this converts here but not above
-      tbl_stopover$end_time <- as_datetime(tbl_stopover$end_time) 
-      
-      all_stopovers[[i]] <- bind_rows(tbl_stop, tbl_stopover)
-      all_stopovers[[i]] <- all_stopovers[[i]] %>% arrange(end_time)
-      
-      #print(i) completes 118 total birds
-  }
+  # Data frame for stops first (one point per stop)
+  tmp_stop <- brd[[i]][which(brd[[i]]$class=='stop'),]
+  tbl_stop <- data.frame(
+    id=tmp_stop$ID,
+    label=66:(66+(nrow(tmp_stop)-1)),
+    start_time = tmp_stop$time,
+    end_time = tmp_stop$time + 43200, # 12 hours later in seconds
+    admin_unit = tmp_stop$m.state,
+    start_lat = tmp_stop$lat,
+    start_lon = tmp_stop$lon,
+    end_lat = tmp_stop$lat, # start/end the same for stop
+    end_lon = tmp_stop$lon,
+    year=tmp_stop$m.year,
+    st.pr=tmp_stop$st.pr,
+    duration=rep(12, nrow(tmp_stop))
+  )
+  # Data frame for stopovers (more than 1 point per stop)
+  if (length(which(brd[[i]]$class=='stopover'))>0){
+    tmp <- brd[[i]][which(brd[[i]]$class=='stopover'),]
+    tbl_stopover <- matrix(NA, nrow=length(unique(tmp$label[which(tmp$class=='stopover')])), ncol=11) #add columns here
+    tbl_stopover <- data.frame(tbl_stopover)
+    names(tbl_stopover) <- c('id', 'label', 'start_time', 'end_time', 'admin_unit', 'start_lat', 'start_lon',
+                             'end_lat', 'end_lon', 'year', 'duration') #add column labels here
+    tbl_stopover$id <- rep(tmp$ID[1], times=nrow(tbl_stopover))
+    tbl_stopover$label <- unique(tmp$label)
+    for (p in 1:nrow(tbl_stopover)){ # anything else you want to calculate by individual stopover you put in here
+      yam <- tmp[which(tmp$label==tbl_stopover$label[p]),]
+      tbl_stopover$start_time[p] <- yam$time[1]
+      tbl_stopover$end_time[p] <- yam$time[nrow(yam)]
+      tbl_stopover$admin_unit[p] <- NA # ignore this until later
+      tbl_stopover$start_lat[p] <- yam$lat[1]
+      tbl_stopover$end_lat[p] <- yam$lat[nrow(yam)]
+      tbl_stopover$start_lon[p] <- yam$lon[1]
+      tbl_stopover$end_lon[p] <- yam$lon[nrow(yam)]
+      tbl_stopover$year[p] <- yam$m.year[1]
+      tbl_stopover$st.pr[p] <- yam$st.pr[1]
+      if (nrow(yam)>1){
+        tbl_stopover$duration[p] <- abs(difftime(yam$time[1], yam$time[nrow(yam)], tz="EST", units='hours'))}
+      else if (nrow(yam)==1){ 
+        tbl_stopover$duration[p] <- 12}
+    }}
+  tbl_stopover$start_time <- as_datetime(tbl_stopover$start_time) # for some reason this converts here but not above
+  tbl_stopover$end_time <- as_datetime(tbl_stopover$end_time) 
+  
+  all_stopovers[[i]] <- bind_rows(tbl_stop, tbl_stopover)
+  all_stopovers[[i]] <- all_stopovers[[i]] %>% arrange(end_time)
+  
+  #print(i) completes 118 total birds
+}
 
 # Combine all into a data frame
 # This is 1 row for each stopover (id is bird id, label is stopover label)
@@ -317,7 +317,18 @@ fall_stopovers <- amwo_sf %>%
 
 ## Add the zone dates
 # ABCDEF are the quebec ones - to match fall_stopover df
-zone_dates <- read.csv('hunting_zone_dates.csv')
+zone_dates <- read.csv('hunting_zone_dates.csv') %>% 
+  filter(!(admin_unit %in% c("A", "B", "G"))) 
+
+zone_dates$admin_unit = case_match(zone_dates$admin_unit,
+                                   "Ontario" ~ "Ontario - Other Districts",
+                                   "C" ~ "Quebec", #combining the districts again, as all of the districts observed had the same seasons
+                                   "D" ~ "Quebec",
+                                   "E" ~ "Quebec",
+                                   "F" ~ "Quebec",
+                                   .default = zone_dates$admin_unit
+)
+
 head(zone_dates)
 
 zone_dates$open <- as_date(zone_dates$open, format='%m/%d/%Y')
@@ -327,7 +338,7 @@ zone_dates$reclose <- as_date(zone_dates$reclose, format='%m/%d/%Y')
 
 
 zone_dates_revised <- zone_dates %>% 
-  mutate(admin_unit = factor(admin_unit, levels = base::rev(c("A", "B", "C", "D", "E", "F", "G", "Ontario", "Ontario - Southern District H", "Ontario - Southern District I", "Nova Scotia", "Maine", "Vermont", "New Hampshire", "Michigan", "New York", "Massachusetts", "Connecticut", 
+  mutate(admin_unit = factor(admin_unit, levels = base::rev(c("Quebec", "Ontario - Southern District H", "Ontario - Southern District I", "Ontario - Other Districts", "Nova Scotia", "Maine", "Vermont", "New Hampshire", "Michigan", "New York", "Massachusetts", "Connecticut", 
                                                               "Rhode Island", "Pennsylvania", "New Jersey (North Zone)", "New Jersey (South Zone)", "Indiana", "Ohio", "West Virginia", "Delaware", "Maryland", "District of Columbia", "Kentucky", "Virginia", "Illinois", "Tennessee",
                                                               "North Carolina", "Arkansas", "South Carolina", "Georgia", "Alabama", "Mississippi", "Louisiana", "Florida", "Texas")), ordered = TRUE))
 ## reformat the fall stopovers to make it easier to graph
@@ -340,7 +351,18 @@ fall_stopovers <- fall_stopovers %>%
                                     .default = 2023
   )) %>% 
   mutate(yearless_date = mdy(paste0(month(start_time), "/", day(start_time), "/", yearless_date))) %>% 
-  mutate(admin_unit = factor(admin_unit, levels = base::rev(c("A", "B", "C", "D", "E", "F", "G", "Ontario", "Ontario - Southern District H", "Ontario - Southern District I", "Nova Scotia", "Maine", "Vermont", "New Hampshire", "Michigan", "New York", "Massachusetts", "Connecticut", 
+  mutate(admin_unit = case_match(admin_unit,
+                                 "Ontario" ~ "Ontario - Other Districts",
+                                 "C" ~ "Quebec", #combining the districts again, as all of the districts observed had the same seasons
+                                 "D" ~ "Quebec",
+                                 "E" ~ "Quebec",
+                                 "F" ~ "Quebec",
+                                 .default = admin_unit
+                                 
+  )) 
+
+fall_stopovers <- fall_stopovers %>% 
+  mutate(admin_unit = factor(admin_unit, levels = base::rev(c("Quebec", "Ontario - Southern District H", "Ontario - Southern District I", "Ontario - Other Districts", "Nova Scotia", "Maine", "Vermont", "New Hampshire", "Michigan", "New York", "Massachusetts", "Connecticut", 
                                                               "Rhode Island", "Pennsylvania", "New Jersey (North Zone)", "New Jersey (South Zone)", "Indiana", "Ohio", "West Virginia", "Delaware", "Maryland", "District of Columbia", "Kentucky", "Virginia", "Illinois", "Tennessee",
                                                               "North Carolina", "Arkansas", "South Carolina", "Georgia", "Alabama", "Mississippi", "Louisiana", "Florida", "Texas")), ordered = TRUE))
 
@@ -367,6 +389,8 @@ fall_stopovers <- readRDS('fall_stopover_plot_data_100623.rds')
 nb.cols <- nlevels(as.factor(fall_stopovers$admin_unit))
 mycolors <- colorRampPalette(brewer.pal(8, "Dark2"))(nb.cols)
 
+# Save as a png
+png("amwo_stopover_phenology_revised.png", width = 6, height = 8, units = "in", res = 400)
 
 ggplot(fall_stopovers, aes(x = yearless_date, y = admin_unit)) +
   geom_crossbar(data = zone_dates_revised, 
@@ -379,9 +403,10 @@ ggplot(fall_stopovers, aes(x = yearless_date, y = admin_unit)) +
                     y = admin_unit, 
                     xmin = reopen,
                     xmax= reclose), fill='gray', color = 'gray') +
-  geom_boxplot(aes(fill = admin_unit), alpha = 0.7) +
+  geom_boxplot(aes(fill = admin_unit), alpha = 0.7,
+               outlier.shape = NA) +
   geom_point(position=position_jitter(width=0.15, height=0.25),
-             size=0.25) +
+             size=0.4) + #0.25
   theme_bw() +
   scale_fill_manual(values=mycolors) +
   theme(legend.position = "none") +
@@ -389,16 +414,16 @@ ggplot(fall_stopovers, aes(x = yearless_date, y = admin_unit)) +
         axis.title.x = element_text(size = 12),
         axis.title.y = element_text(size = 12)) +
   labs(y = "Stopover timing", x = "State/Province") +
-  scale_y_discrete(limits = base::rev(c("A", "B", "C", "D", "E", "F", "G", "Ontario", "Ontario - Southern District H", "Ontario - Southern District I", "Nova Scotia", "Maine", "Vermont", "New Hampshire", "Michigan", "New York", "Massachusetts", "Connecticut", 
-                              "Rhode Island", "Pennsylvania", "New Jersey (North Zone)", "New Jersey (South Zone)", "Indiana", "Ohio", "West Virginia", "Delaware", "Maryland", "District of Columbia", "Kentucky", "Virginia", "Illinois", "Tennessee",
-                              "North Carolina", "Arkansas", "South Carolina", "Georgia", "Alabama", "Mississippi", "Louisiana", "Florida", "Texas")))
+  scale_y_discrete(limits = base::rev(c("Quebec", "Ontario - Southern District H", "Ontario - Southern District I", "Ontario - Other Districts", "Nova Scotia", "Maine", "Vermont", "New Hampshire", "Michigan", "New York", "Massachusetts", "Connecticut", 
+                                        "Rhode Island", "Pennsylvania", "New Jersey (North Zone)", "New Jersey (South Zone)", "Indiana", "Ohio", "West Virginia", "Delaware", "Maryland", "District of Columbia", "Kentucky", "Virginia", "Illinois", "Tennessee",
+                                        "North Carolina", "Arkansas", "South Carolina", "Georgia", "Alabama", "Mississippi", "Louisiana", "Florida", "Texas")))
 
-
+dev.off()
 
 # admin_unit is administrative unit that I pulled
 # st.pr is from alex's original (I think)
 # it looks like they're pretty much the same
- 
+
 # data <- fall_stopovers
 #data <-sub
 
