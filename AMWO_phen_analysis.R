@@ -2,11 +2,8 @@
 library(rsq)
 rsq(age.times.sex, adj = TRUE)
 
-
-
-
 rm(list=ls())
-setwd("G:/My Drive/PhD_AMWO/AMWo_Phenology/AMWO_phen_analysis/")
+#setwd("G:/My Drive/PhD_AMWO/AMWo_Phenology/AMWO_phen_analysis/")
 
 library(lme4)
 library(AICcmodavg)
@@ -31,7 +28,7 @@ data17$mig.init.between <- as.POSIXct(data17$mig.init.between, origin="1970-01-0
 data17$init.ord <- as.numeric(round(data17$mig.init.between - as.POSIXct("2017-10-01", origin="1970-01-01 04:00:00")))
 data <- rbind(data18, data19, data17)
 
-amwo.capt <- read.csv("G:/My Drive/PhD_AMWO/AMWo_Phenology/AMWO_Condition_Regression/amwo.capt_condition.csv")
+amwo.capt <- read.csv("amwo.capt_condition.csv")
 
 ### date/time imported as factors, need to convert to POSIXct
   #data$mig.init.between <- as.POSIXct(data$mig.init.between, origin="1970-01-01 04:00:00")
@@ -49,7 +46,7 @@ amwo.capt$condition <- amwo.capt$resid
 #amwo.capt$condition[is.na(amwo.capt$condition)] <- 0  ## subset and remove legacy birds and condition=NA
 amwo.capt$ID <- amwo.capt$Movebank.ID
 
-data <- left_join(data, amwo.capt[c(3,24:25)], by = "ID") 
+data <- left_join(data, amwo.capt[c(3,24:25)], by = "ID") # Liam note: this may be bugged
 
 #data <- data %>%
 #  group_by(ID) %>%
@@ -140,64 +137,123 @@ pred.juv <- subset(fall.pred, age=="0")
 plot.data <- data %>%
   filter(st.start != 'KY',
          st.start != 'OH',
-         st.start != 'VT')
+         st.start != 'VT') %>% 
+  rename(admin_unit = st.start)
 
-nb.cols <- nlevels(as.factor(plot.data$st.start))
+## Liam note: add in hunting seasons here
+zone_dates_init <- read.csv('hunting_zone_dates.csv')
+
+zone_dates_init$admin_unit = case_match(zone_dates_init$admin_unit,
+                                   "Ontario" ~ "ONT", #all deployed ontario birds were in the "other district" category
+                                   "C" ~ "QUE", #Use a single Quebec hunting season from the place of deployment
+                                   "Nova Scotia" ~ "NS",
+                                   "Maine" ~ "ME",
+                                   "New York" ~ "NY",
+                                   "Pennsylvania" ~ "PA",
+                                   "Rhode Island" ~ "RI",
+                                   "West Virginia" ~ "WV",
+                                   "Virginia" ~ "VA",
+                                   .default = NA
+)
+
+zone_dates_init <- zone_dates_init %>% 
+  filter(!is.na(admin_unit))
+
+head(zone_dates_init)
+
+zone_dates_init$open <- as_date(zone_dates_init$open, format='%m/%d/%Y')
+zone_dates_init$close <- as_date(zone_dates_init$close, format='%m/%d/%Y')
+zone_dates_init$reopen <- as_date(zone_dates_init$reopen, format='%m/%d/%Y')
+zone_dates_init$reclose <- as_date(zone_dates_init$reclose, format='%m/%d/%Y')
+
+# Cut down the hunting dates to the boundaries of the graphs
+zone_dates_init <- zone_dates_init %>%
+  mutate(open = if_else(open < as.Date(5, origin = "2023-10-01"), as.Date(5, origin = "2023-10-01"), open)) %>%
+  mutate(close = if_else(close > as.Date(75, origin = "2023-10-01"), as.Date(75, origin = "2023-10-01"), close)) %>% 
+  mutate(reopen = if_else(reopen > as.Date(75, origin = "2023-10-01"), NA, reopen)) %>% 
+  mutate(reclose = if_else(is.na(reopen), NA, reclose)) %>% 
+  mutate(reclose = if_else(reclose > as.Date(75, origin = "2023-10-01"), as.Date(75, origin = "2023-10-01"), reclose))
+  
+
+
+nb.cols <- nlevels(as.factor(plot.data$admin_unit))
 ## stretch the 'Dark2' pallette into that number of colors
 mycolors <- colorRampPalette(brewer.pal(8, "Blues"))(nb.cols)
 
 
 #migration initation by state (data only, no model predictions)
-state.plot3.1 <- ggplot () +
-  geom_boxplot(data=plot.data, aes(x = reorder(as.factor(st.start),lat), # '-' before lat
-                              y = as.Date(init.ord, origin = "2019-10-01"), 
-                              fill = reorder(as.factor(st.start),lat)), outlier.shape=NA) + # '-' before lat
-  geom_point(data=plot.data, aes(x = reorder(as.factor(st.start),lat), # '-' before lat
-                                  y = as.Date(init.ord, origin = "2019-10-01")),
-             position=position_jitter(width=0.15, height=1),
+
+## Liam note: Now with added hunting seasons
+state.plot3.1 <- ggplot() +
+  geom_crossbar(data = zone_dates_init, 
+                aes(x = open, 
+                    y = admin_unit, 
+                    xmin = open,
+                    xmax= close), fill='gray', color = 'gray') +
+  geom_crossbar(data = zone_dates_init,
+                aes(x = open, 
+                    y = admin_unit, 
+                    xmin = reopen,
+                    xmax= reclose), fill='gray', color = 'gray') +
+  geom_boxplot(data=plot.data, aes(y = admin_unit, # '-' before lat
+                              x = as.Date(init.ord, origin = "2023-10-01"),
+                              fill = admin_unit), outlier.shape=NA) + # '-' before lat
+  geom_point(data=plot.data, aes(y = admin_unit, # '-' before lat
+                                  x = as.Date(init.ord, origin = "2023-10-01")),
+             position=position_jitter(width=0.15, height=0.3),
              size=1) +
-  #scale_fill_manual(values=mycolors) +
   scale_fill_manual(values = c("steelblue4", "dodgerblue3", "deepskyblue3", "steelblue2",
                     "cadetblue3", "lightskyblue", "cadetblue2", "paleturquoise2", "lightblue1")) +
-  scale_x_discrete(expand=c(0.1, 0)) +
-  coord_flip() +
+  scale_y_discrete(expand=c(0.1, 0),
+                   limits = rev(c("ONT", "QUE", "NS", "ME", "NY", "PA", "RI", "WV", "VA"))) +
   theme_classic() +
   theme(legend.position = "none") +
   theme(plot.title = element_text(size = 20, face = "bold", hjust = 0.5), 
         axis.title.x = element_text(size = 12),
         axis.title.y = element_text(size = 12)) +
-  labs(y = "", x = "State/Province") +
-  ylim(as.Date(5, origin = "2019-10-01"),as.Date(75, origin = "2019-10-01"))
+  labs(x = "", y = "State/Province") +
+  xlim(as.Date(5, origin = "2023-10-01"), as.Date(75, origin = "2023-10-01"))
+  #coord_cartesian(xlim = c(as.Date(5, origin = "2023-10-01"), as.Date(75, origin = "2023-10-01")), clip = "off")
 state.plot3.1
 
 #migration initation by state (predictions only)
 state.plot3.2 <- ggplot () +
-  geom_pointrange(data=pred.adult, aes(x = reorder(as.factor(st.start),lat), # '-' before lat
-                                       y = as.Date(init.pred, origin = "2019-10-01"), 
-                                       ymin = as.Date(lower, origin = "2019-10-01"),
-                                       ymax = as.Date(upper, origin = "2019-10-01")),
+  geom_crossbar(data = zone_dates_init, 
+                aes(x = open, 
+                    y = admin_unit, 
+                    xmin = open,
+                    xmax= close), fill='gray', color = 'gray') +
+  geom_crossbar(data = zone_dates_init,
+                aes(x = open, 
+                    y = admin_unit, 
+                    xmin = reopen,
+                    xmax= reclose), fill='gray', color = 'gray') +
+  geom_pointrange(data=pred.adult, aes(y = st.start, # '-' before lat
+                                       x = as.Date(init.pred, origin = "2023-10-01"), 
+                                       xmin = as.Date(lower, origin = "2023-10-01"),
+                                       xmax = as.Date(upper, origin = "2023-10-01")),
                   shape=15,   ##boxes for adults
-                  position=position_nudge(x=0.15, y=0),
+                  position=position_nudge(y=0.15, x=0),
                   size=0.5) +
-  geom_pointrange(data=pred.juv, aes(x = reorder(as.factor(st.start),lat), # '-' before lat
-                                     y = as.Date(init.pred, origin = "2019-10-01"),
-                                     ymin = as.Date(lower, origin = "2019-10-01"),
-                                     ymax = as.Date(upper, origin = "2019-10-01")),
+  geom_pointrange(data=pred.juv, aes(y = st.start, # '-' before lat
+                                     x = as.Date(init.pred, origin = "2023-10-01"),
+                                     xmin = as.Date(lower, origin = "2023-10-01"),
+                                     xmax = as.Date(upper, origin = "2023-10-01")),
                   shape=18, ##diamonds are for juv
-                  position=position_nudge(x=-0.15, y=0),
+                  position=position_nudge(y=-0.15, x=0),
                   size=0.5) +
   #scale_fill_manual(values=mycolors) +
   scale_fill_manual(values = c("steelblue4", "dodgerblue3", "deepskyblue3", "steelblue2",
                                "cadetblue3", "lightskyblue", "cadetblue2", "paleturquoise2", "lightblue1")) +
-  scale_x_discrete(expand=c(0.1, 0), limits=c("VA", "WV", "RI", "PA", "NY", "ME", "NS", "QUE", "ONT")) +
-  coord_flip() +
+  scale_y_discrete(expand=c(0.1, 0), limits=c("VA", "WV", "RI", "PA", "NY", "ME", "NS", "QUE", "ONT")) +
+  #coord_flip() +
   theme_classic() +
   theme(legend.position = "none") +
   theme(plot.title = element_text(size = 20, face = "bold", hjust = 0.5), 
         axis.title.x = element_text(size = 12),
         axis.title.y = element_text(size = 12)) +
-  labs(y = "Fall initiation", x = "State/Province") +
-  ylim(as.Date(5, origin = "2019-10-01"),as.Date(75, origin = "2019-10-01"))
+  labs(x = "Fall initiation", y = "State/Province") +
+  xlim(as.Date(5, origin = "2023-10-01"),as.Date(75, origin = "2023-10-01"))
 state.plot3.2
 
 library(cowplot)
@@ -209,15 +265,16 @@ state.plot3
 
 ggsave("Fall_init_prediction.jpeg", device="jpeg",
        scale = 1, width = 3.25, height = 6, units = c("in"),
-       dpi = 1200, limitsize = TRUE)
+       dpi = 400, limitsize = TRUE)
+
 
 #scale_fill_manual(values=mycolors) +
 #scale_fill_manual(values = c("midnightblue", "navyblue", "blue4", "mediumblue", "royalblue4",
 #                  "dodgerblue4", "dodgerblue3", "deepskyblue2", "lightskyblue",
 #                  "cadetblue3", "cadetblue2", "darkslategray1", "lightblue1")) +
-scale_fill_manual(values = c("royalblue4",
-                  "dodgerblue4", "dodgerblue3", "deepskyblue2", "lightskyblue",
-                  "cadetblue3", "cadetblue2", "darkslategray1", "lightblue1")) +
+# scale_fill_manual(values = c("royalblue4",
+#                   "dodgerblue4", "dodgerblue3", "deepskyblue2", "lightskyblue",
+#                   "cadetblue3", "cadetblue2", "darkslategray1", "lightblue1")) +
   #scale_fill_manual(values = c("lightblue1", "powderblue", "lightblue", "blue4", "aliceblue", "lightskyblue2", "lightcyan", 
   #                             "skyblue2", "skyblue3", "paleturquoise1", "steelblue4", "blue4")) +
 
@@ -225,19 +282,19 @@ scale_fill_manual(values = c("royalblue4",
 
 
 ##not organized by latitude
-state.plot4 <- ggplot () +
-  geom_boxplot(data=data, aes(x = st.start, 
-                              y = as.Date(init.ord, origin = "2019-10-01"), 
-                              fill = st.start)) +
-  scale_fill_manual(values = c("lightblue1", "lightblue", "aliceblue", "lightskyblue2", "lightcyan", 
-                               "skyblue2", "skyblue3", "paleturquoise1", "steelblue4", "blue4", "navyblue", "blue4")) +
-  coord_flip() +
-  theme(legend.position = "none") +
-  theme(plot.title = element_text(size = 20, face = "bold", hjust = 0.5), 
-        axis.title.x = element_text(size = 14, face = "bold"),
-        axis.title.y = element_text(size = 14, face = "bold")) +
-  labs(y = "Date", x = "State/Province")
-state.plot4
+# state.plot4 <- ggplot () +
+#   geom_boxplot(data=data, aes(x = st.start, 
+#                               y = as.Date(init.ord, origin = "2019-10-01"), 
+#                               fill = st.start)) +
+#   scale_fill_manual(values = c("lightblue1", "lightblue", "aliceblue", "lightskyblue2", "lightcyan", 
+#                                "skyblue2", "skyblue3", "paleturquoise1", "steelblue4", "blue4", "navyblue", "blue4")) +
+#   coord_flip() +
+#   theme(legend.position = "none") +
+#   theme(plot.title = element_text(size = 20, face = "bold", hjust = 0.5), 
+#         axis.title.x = element_text(size = 14, face = "bold"),
+#         axis.title.y = element_text(size = 14, face = "bold")) +
+#   labs(y = "Date", x = "State/Province")
+# state.plot4
 
 
 ## creating plots from the data
@@ -288,7 +345,7 @@ summary(data$st.start)
 ###########################################################################################
 ### Migration termination fall 
 rm(list=ls())
-setwd("G:/My Drive/PhD_AMWO/AMWo_Phenology/AMWO_phen_analysis/")
+#setwd("G:/My Drive/PhD_AMWO/AMWo_Phenology/AMWO_phen_analysis/")
 
 library(lme4)
 library(AICcmodavg)
@@ -311,9 +368,25 @@ data18$term.ord <- as.numeric(round(data18$mig.term.between - as.POSIXct("2018-1
 data17 <- read.csv("amwo.term.f17.csv")
 data17$mig.term.between <- as.POSIXct(data17$mig.term.between, origin="1970-01-01 04:00:00")
 data17$term.ord <- as.numeric(round(data17$mig.term.between - as.POSIXct("2017-10-01", origin="1970-01-01 04:00:00")))
-data <- rbind(data18, data19, data17)
 
-amwo.capt <- read.csv("G:/My Drive/PhD_AMWO/AMWo_Phenology/AMWO_Condition_Regression/amwo.capt_condition.csv")
+data <- rbind(data18, data19, data17) #%>% 
+  #st_as_sf(coords = c("lon", "lat"), crs = 4326, remove = FALSE)
+
+# Liam note: write code here that would join the new jersey district borders to the terminations
+# allowing us to match NJ terminations with the hunting zones
+
+## Never mind- these are all south zone
+
+# nj <- st_read(dsn='nj_hunting_zones', layer='nj_hunting_zones_revised') %>% 
+#   st_transform(4326) %>% 
+#   rename(nj_dist = dstrct_)
+# 
+# data <- data %>% 
+#   st_join(nj)
+
+#
+
+amwo.capt <- read.csv("amwo.capt_condition.csv")
 
 ### date/time imported as factors, need to convert to POSIXct
 #data$mig.init.between <- as.POSIXct(data$mig.init.between, origin="1970-01-01 04:00:00")
@@ -423,29 +496,80 @@ plot.data2 <- data %>%
   filter(st.pr != 'PA',
          st.pr != 'TX')
 
+## Liam note: I modified this graph to add hunting zones, even though it doesn't make it to the final manuscript. Whoops.
+zone_dates_term <- read.csv('hunting_zone_dates.csv')
+
+zone_dates_term$admin_unit = case_match(zone_dates_term$admin_unit,
+                                        "Virginia" ~ "VA",
+                                        "South Carolina" ~ "SC",
+                                        "Rhode Island" ~ "RI",
+                                        #"New Jersey (North Zone)" ~ "NJ - North",
+                                        "New Jersey (South Zone)" ~ "NJ", # NJ is just south zone
+                                        "North Carolina" ~ "NC",
+                                        "Mississippi" ~ "MS",
+                                        "Maryland" ~ "MD",
+                                        "Louisiana" ~ "LA",
+                                        "Georgia" ~ "GA",
+                                        "Florida" ~ "FL",
+                                        "Arkansas" ~ "AR",
+                                        "Alabama" ~ "AL",
+                                        .default = NA
+)
+
+zone_dates_term <- zone_dates_term %>% 
+  filter(!is.na(admin_unit))
+
+head(zone_dates_term)
+
+zone_dates_term$open <- as_date(zone_dates_term$open, format='%m/%d/%Y')
+zone_dates_term$close <- as_date(zone_dates_term$close, format='%m/%d/%Y')
+zone_dates_term$reopen <- as_date(zone_dates_term$reopen, format='%m/%d/%Y')
+zone_dates_term$reclose <- as_date(zone_dates_term$reclose, format='%m/%d/%Y')
+
+# Cut down the hunting dates to the boundaries of the graphs
+zone_dates_term <- zone_dates_term %>%
+  mutate(open = if_else(open < as.Date(35, origin = "2023-10-01"), as.Date(35, origin = "2023-10-01"), open)) %>%
+  mutate(close = if_else(close > as.Date(95, origin = "2023-10-01"), as.Date(95, origin = "2023-10-01"), close)) %>% 
+  mutate(reopen = if_else(reopen > as.Date(95, origin = "2023-10-01"), NA, reopen)) %>% 
+  mutate(reclose = if_else(is.na(reopen), NA, reclose)) %>% 
+  mutate(reclose = if_else(reclose > as.Date(95, origin = "2023-10-01"), as.Date(95, origin = "2023-10-01"), reclose))
+
+
 nb.cols <- nlevels(as.factor(plot.data2$st.start))
 ## stretch the 'Dark2' pallette into that number of colors
 mycolors <- colorRampPalette(brewer.pal(8, "Blues"))(nb.cols)
 
 # migration termination plot (data only, no model predictions)
 state.plot6 <- ggplot () +
-  geom_boxplot(data=plot.data2, aes(x = reorder(as.factor(st.pr),lat), 
-                              y = as.Date(term.ord, origin = "2019-10-01"), 
-                              fill = reorder(as.factor(st.pr),lat)), outlier.shape=NA) +
-  geom_point(data=plot.data2, aes(x = reorder(as.factor(st.pr),lat), # '-' before lat
-                                 y = as.Date(term.ord, origin = "2019-10-01")),
+  geom_crossbar(data = zone_dates_term, 
+                aes(x = open, 
+                    y = admin_unit, 
+                    xmin = open,
+                    xmax= close), fill='gray', color = 'gray') +
+  geom_crossbar(data = zone_dates_term,
+                aes(x = open, 
+                    y = admin_unit, 
+                    xmin = reopen,
+                    xmax= reclose), fill='gray', color = 'gray') +
+  geom_boxplot(data=plot.data2, aes(y = st.pr, 
+                              x = as.Date(term.ord, origin = "2023-10-01"), 
+                              fill = st.pr), outlier.shape=NA) +
+  geom_point(data=plot.data2, aes(y = st.pr, # '-' before lat
+                                 x = as.Date(term.ord, origin = "2023-10-01")),
              position=position_jitter(width=0.15, height=0.1),
-             size=1) +
+             size= 0.5) +
   scale_fill_manual(values = c("steelblue4", "dodgerblue3", "deepskyblue3", "steelblue2",
                                "cadetblue3", "lightskyblue", "cadetblue2", "lightskyblue2", "paleturquoise2", 
                                "lightblue1", "paleturquoise1", "lightcyan1")) +
-  coord_flip() +
+  #coord_flip() +
   theme_classic() +
   theme(legend.position = "none") +
   theme(plot.title = element_text(size = 20, face = "bold", hjust = 0.5), 
         axis.title.x = element_text(size = 12),
         axis.title.y = element_text(size = 12)) +
-  labs(y = "Fall termination", x = "State")
+  labs(x = "Fall termination", y = "State") +
+  xlim(as.Date(35, origin = "2023-10-01"), as.Date(95, origin = "2023-10-01")) +
+  scale_y_discrete(limits=c("FL", "LA", "MS", "AL", "GA", "AR", "SC", "NC", "VA", "MD", "NJ", "RI"))
 state.plot6
 
 ggsave("Fall_term_Final1.jpeg", device="jpeg",
@@ -460,10 +584,13 @@ plot.data6 <- data %>%
 ### Model predictions
 ### using the inference model to predict distributions and calculate 95% CI
 f.term.pred <- read.csv("fall_term_predict.csv")
-prediction<- predict.glm(null, newdata=f.term.pred, se.fit=TRUE)
-fall.pred<- cbind(f.term.pred, prediction)
-colnames(fall.pred)<- c("st.start", "start.lon", "start.lat","term.pred","SE")
-fall.pred$lower<- fall.pred$term.pred-(fall.pred$SE*1.96)
+
+# Liam note: this csv seems to be missing. I should be able to recreate it if needed, though
+
+prediction <- predict.glm(null, newdata=f.term.pred, se.fit=TRUE)
+fall.pred <- cbind(f.term.pred, prediction)
+colnames(fall.pred) <- c("st.start", "start.lon", "start.lat","term.pred","SE")
+fall.pred$lower <- fall.pred$term.pred-(fall.pred$SE*1.96)
 fall.pred$upper<- fall.pred$term.pred+(fall.pred$SE*1.96)
 
 # migration termination plot 2 (data only, no model predictions)
@@ -526,7 +653,7 @@ summary(data$st.pr)
 ###########################################################################################
 ### Spring migration initaition
 rm(list=ls())
-setwd("G:/My Drive/PhD_AMWO/AMWo_Phenology/AMWO_phen_analysis/")
+#setwd("G:/My Drive/PhD_AMWO/AMWo_Phenology/AMWO_phen_analysis/")
 
 library(lme4)
 library(AICcmodavg)
@@ -539,7 +666,7 @@ library(ggridges)
 ############################################################################
 ### Migration initiation analysis framework (combine 2019 and 2020)
 
-# initation data for 2019 and 2018; also included is calcuation for ordinal data
+# initation data for 2019 and 2018; also included is calculation for ordinal data
 data19 <- read.csv("amwo.init.sp19.csv")
 data19$mig.init.between <- as.POSIXct(data19$mig.init.between, origin="1970-01-01 04:00:00")
 data19$init.ord <- as.numeric(round(data19$mig.init.between - as.POSIXct("2019-01-01", origin="1970-01-01 04:00:00")))
@@ -549,7 +676,7 @@ data20$init.ord <- as.numeric(round(data20$mig.init.between - as.POSIXct("2020-0
 data <- rbind(data20, data19)
 
 amwo.capt <- read.csv("amwo.capt_condition.csv")
-amwo.capt <- read.csv("G:/My Drive/PhD_AMWO/AMWo_Phenology/AMWO_Condition_Regression/amwo.capt_condition.csv")
+
 
 ### date/time imported as factors, need to convert to POSIXct
 #data$mig.init.between <- as.POSIXct(data$mig.init.between, origin="1970-01-01 04:00:00")
@@ -670,56 +797,115 @@ plot.data3 <- data %>%
   filter(st.start != 'AR',
          st.start != 'NJ')
 
+# Liam note: edit this figure
+zone_dates_spr <- read.csv('hunting_zone_dates.csv')
+
+zone_dates_spr$admin_unit = case_match(zone_dates_spr$admin_unit,
+                                        "Rhode Island" ~ "RI",
+                                        "Maryland" ~ "MD",
+                                        "Virginia" ~ "VA",
+                                        "North Carolina" ~ "NC",
+                                        "South Carolina" ~ "SC",
+                                        "Georgia" ~ "GA",
+                                        "Alabama" ~ "AL",
+                                        "Mississippi" ~ "MS",
+                                        "Louisiana" ~ "LA",
+                                        .default = NA
+)
+
+zone_dates_spr <- zone_dates_spr %>% 
+  filter(!is.na(admin_unit))
+
+head(zone_dates_spr)
+
+zone_dates_spr$open <- as_date(zone_dates_spr$open, format='%m/%d/%Y')
+zone_dates_spr$close <- as_date(zone_dates_spr$close, format='%m/%d/%Y')
+zone_dates_spr$reopen <- as_date(zone_dates_spr$reopen, format='%m/%d/%Y')
+zone_dates_spr$reclose <- as_date(zone_dates_spr$reclose, format='%m/%d/%Y')
+
+# Cut down the hunting dates to the boundaries of the graphs
+zone_dates_spr <- zone_dates_spr %>%
+  mutate(close = if_else(close < as.Date(15, origin = "2024-01-01"), NA, close)) %>% #if closes before this time period, return NA
+  mutate(open = if_else(is.na(close), NA, open)) %>% 
+  mutate(open = if_else(open < as.Date(15, origin = "2024-01-01"), as.Date(15, origin = "2024-01-01"), open)) %>%
+  mutate(close = if_else(close > as.Date(100, origin = "2024-01-01"), as.Date(100, origin = "2024-01-01"), close)) %>% 
+  mutate(reclose = if_else(reclose < as.Date(15, origin = "2024-01-01"), NA, reclose)) %>% #if closes before this time period, return NA
+  mutate(reopen = if_else(is.na(reopen), NA, open)) %>% 
+  mutate(reopen = if_else(reopen > as.Date(100, origin = "2024-01-01"), NA, reopen)) %>% 
+  mutate(reclose = if_else(is.na(reopen), NA, reclose)) %>% 
+  mutate(reclose = if_else(reclose > as.Date(100, origin = "2024-01-01"), as.Date(100, origin = "2024-01-01"), reclose))
+
 nb.cols <- nlevels(as.factor(plot.data3$st.start))
 ## stretch the 'Dark2' pallette into that number of colors
 mycolors <- colorRampPalette(brewer.pal(8, "Blues"))(nb.cols)
 
 state.plot1.1 <- ggplot () +
-  geom_boxplot(data=plot.data3, aes(x = reorder(as.factor(st.start),lon), 
-                              y = as.Date(init.ord, origin = "2019-01-01"), 
-                              fill = reorder(as.factor(st.start),lon)), outlier.shape=NA) +
-  geom_point(data=plot.data3, aes(x = reorder(as.factor(st.start),lat), # '-' before lat
-                                 y = as.Date(init.ord, origin = "2019-01-01")),
-             position=position_jitter(width=0.15, height=1),
+  geom_crossbar(data = zone_dates_spr,
+                aes(x = open,
+                    y = admin_unit,
+                    xmin = open,
+                    xmax= close), fill='gray', color = 'gray') +
+  geom_crossbar(data = zone_dates_spr,
+                aes(x = open,
+                    y = admin_unit,
+                    xmin = reopen,
+                    xmax= reclose), fill='gray', color = 'gray') +
+  geom_boxplot(data=plot.data3, aes(y = st.start, 
+                              x = as.Date(init.ord, origin = "2024-01-01"), 
+                              fill = st.start), outlier.shape=NA) +
+  geom_point(data=plot.data3, aes(y = st.start, # '-' before lat
+                                 x = as.Date(init.ord, origin = "2024-01-01")),
+             position=position_jitter(height=0.15, width=1),
              size=1) +
   scale_fill_manual(values = c("steelblue4", "dodgerblue3", "deepskyblue3", "steelblue2",
                                "cadetblue3", "lightskyblue", "cadetblue2", "paleturquoise2", "lightblue1")) +
-  coord_flip() +
+  #coord_flip() +
   theme_classic() + 
   theme(legend.position = "none") +
   theme(plot.title = element_text(size = 20, face = "bold", hjust = 0.5), 
         axis.title.x = element_text(size = 12),
         axis.title.y = element_text(size = 12)) +
-  labs(y = "", x = "State/Province") +
-  ylim(as.Date(15, origin = "2019-01-01"),as.Date(100, origin = "2019-01-01"))
+  labs(x = "", y = "State/Province") +
+  xlim(as.Date(15, origin = "2024-01-01"),as.Date(100, origin = "2024-01-01")) +
+  scale_y_discrete(limits=c("LA", "MS", "AL", "GA", "SC", "NC", "VA", "MD", "RI"))
 state.plot1.1
 
 state.plot1.2 <- ggplot () +
-  geom_pointrange(data=pred.male, aes(x = reorder(as.factor(st.start),lat), # '-' before lat
-                                      y = as.Date(init.pred, origin = "2019-01-01"),
-                                      ymin = as.Date(lower, origin = "2019-01-01"), 
-                                      ymax = as.Date(upper, origin = "2019-01-01")),
-                  position=position_nudge(x=0.15, y=0),
+  geom_crossbar(data = zone_dates_spr,
+                aes(x = open,
+                    y = admin_unit,
+                    xmin = open,
+                    xmax= close), fill='gray', color = 'gray') +
+  geom_crossbar(data = zone_dates_spr,
+                aes(x = open,
+                    y = admin_unit,
+                    xmin = reopen,
+                    xmax= reclose), fill='gray', color = 'gray') +
+  geom_pointrange(data=pred.male, aes(y = st.start, # '-' before lat
+                                      x = as.Date(init.pred, origin = "2024-01-01"),
+                                      xmin = as.Date(lower, origin = "2024-01-01"), 
+                                      xmax = as.Date(upper, origin = "2024-01-01")),
+                  position=position_nudge(y=0.15, x=0),
                   size=0.5,
                   shape=15) +   ##boxes for males) +
-  geom_pointrange(data=pred.female, aes(x = reorder(as.factor(st.start),lat), # '-' before lat
-                                        y = as.Date(init.pred, origin = "2019-01-01"), 
-                                        ymin = as.Date(lower, origin = "2019-01-01"), 
-                                        ymax = as.Date(upper, origin = "2019-01-01")),
-                  position=position_nudge(x=-0.15, y=0),
+  geom_pointrange(data=pred.female, aes(y = st.start, # '-' before lat
+                                        x = as.Date(init.pred, origin = "2024-01-01"), 
+                                        xmin = as.Date(lower, origin = "2024-01-01"), 
+                                        xmax = as.Date(upper, origin = "2024-01-01")),
+                  position=position_nudge(y=-0.15, x=0),
                   size=0.5,
                   shape=18) +   ##diamonds for females) +
   scale_fill_manual(values = c("steelblue4", "dodgerblue3", "deepskyblue3", "steelblue2",
                                "cadetblue3", "lightskyblue", "cadetblue2", "paleturquoise2", "lightblue1")) +
-  scale_x_discrete(limits=c("LA", "MS", "AL", "GA", "SC", "NC", "VA", "MD", "RI")) +
-  coord_flip() +
+  scale_y_discrete(limits=c("LA", "MS", "AL", "GA", "SC", "NC", "VA", "MD", "RI")) +
+  #coord_flip() +
   theme_classic() + 
   theme(legend.position = "none") +
   theme(plot.title = element_text(size = 20, face = "bold", hjust = 0.5), 
         axis.title.x = element_text(size = 12),
         axis.title.y = element_text(size = 12)) +
-  labs(y = "Spring initiation", x = "State/Province") +
-  ylim(as.Date(15, origin = "2019-01-01"),as.Date(100, origin = "2019-01-01"))
+  labs(x = "Spring initiation", y = "State/Province") +
+  xlim(as.Date(15, origin = "2024-01-01"),as.Date(100, origin = "2024-01-01"))
 state.plot1.2
 
 library(cowplot)
@@ -731,7 +917,7 @@ state.plot1
 
 ggsave("Spring_init_prediction.jpeg", device="jpeg",
        scale = 1, width = 3.25, height = 6, units = c("in"),
-       dpi = 1200, limitsize = TRUE)
+       dpi = 400, limitsize = TRUE)
 
 
 
