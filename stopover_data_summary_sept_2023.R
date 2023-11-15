@@ -180,6 +180,7 @@ brd[[88]]$label[which(brd[[88]]$label==6)] <- 4
 brd[[96]]$label[which(brd[[96]]$label==9)] <- 8
 brd[[96]]$label[which(brd[[96]]$label==10)] <- 8
 
+saveRDS(brd, file='birds_list_111523.rds')
 
 # ******************* 04 Stopover Data Calculations***************************** -----
 
@@ -376,6 +377,7 @@ fall_stopovers <- fall_stopovers %>%
 #sub <- fall_stopovers[which(is.na(fall_stopovers$yday_open)==F),] # subset of only places we had hunting informationf for
 
 saveRDS(fall_stopovers, file='fall_stopover_plot_data_100623.rds')
+saveRDS(zone_dates_revised, file='amwo_zone_dates_revised_111523.rds')
 
 # ************************ 06 Add plot ***************************************** -----
 
