@@ -12,7 +12,7 @@ library(wesanderson)
 library(RColorBrewer)
 
 
-# ********************* 01 Read in original data *******************************
+# ********************* 01 Read in original data ******************************* -----
 # Alex's code for importing migration timing data
 data19 <- read.csv("amwo.mig.f19.csv")
 data19$date <- as.POSIXct(data19$date, origin="1970-01-01 04:00:00")
@@ -39,7 +39,7 @@ data$age <- as.numeric(if_else(data$age == 'juv', 0, 1))  #ad=1; juv=0
 ## done with data prep
 #View(data)
 
-# *********************** 02 Identify Stopovers ********************************
+# *********************** 02 Identify Stopovers ********************************-----
 
 # This section uses code adapted from the migration strategy paper
 # Only modified to match Alex's data structure and to better handle birds with only 1 migration point
@@ -55,7 +55,7 @@ birds <- birds %>% mutate(stopover=if_else(step<stop_dist, 1, 0))
 # then separate into brd list, this time complete with both distance and stop threshold info
 ids <- unique(birds$ID) 
 brd <- list()
-for (i in 1:length(ids)){ # Liam note- Sarah, there's this fun function called "nest"
+for (i in 1:length(ids)){ # Liam note- Sarah, there's this fun function called "nest" # Sarah note - Liam, nests are for birds
   brd[[i]] <- birds[which(birds$ID==ids[i]),]
 }
 
@@ -102,7 +102,7 @@ for (q in 1:length(brd)){
 }
 
 
-# *********************** 03 Check/Reclassify ********************************
+# *********************** 03 Check/Reclassify ******************************** -----
 
 # Leaflet map with stopover labels
 stopover_id_map<- function(x){
@@ -181,7 +181,7 @@ brd[[96]]$label[which(brd[[96]]$label==9)] <- 8
 brd[[96]]$label[which(brd[[96]]$label==10)] <- 8
 
 
-# ******************* 04 Stopover Data Calculations*****************************
+# ******************* 04 Stopover Data Calculations***************************** -----
 
 # Calculate stopover metrics
 # Create Metric table to fill in 
@@ -245,7 +245,7 @@ fall_stopover_data <- bind_rows(all_stopovers)
 fall_stopover_data <- fall_stopover_data %>% rename(duration_hours = duration)
 
 
-# ********************* 05 Reclassify Admin Units ******************************
+# ********************* 05 Reclassify Admin Units ****************************** -----
 
 nj <- st_read(dsn='nj_hunting_zones', layer='nj_hunting_zones_revised')
 qc <- st_read(dsn='quebec_hunting_zones', layer='quebec_hunting_zones_5070')
@@ -377,7 +377,7 @@ fall_stopovers <- fall_stopovers %>%
 
 saveRDS(fall_stopovers, file='fall_stopover_plot_data_100623.rds')
 
-# ************************ 06 Add plot *****************************************
+# ************************ 06 Add plot ***************************************** -----
 
 fall_stopovers <- readRDS('fall_stopover_plot_data_100623.rds')
 
