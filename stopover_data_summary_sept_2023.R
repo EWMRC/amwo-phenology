@@ -1,7 +1,7 @@
 # Fall Migration Stopover Data summary
 # Fish et al. Phenology paper
 # September 2023
-# Last Edit - LAB Nov 2023
+# Last Edit - SJC Nov 2023
 
 library(leaflet)
 library(tidyverse)
@@ -232,11 +232,13 @@ for (i in 1:length(brd)){
     }}
   tbl_stopover$start_time <- as_datetime(tbl_stopover$start_time) # for some reason this converts here but not above
   tbl_stopover$end_time <- as_datetime(tbl_stopover$end_time) 
-  
-  all_stopovers[[i]] <- bind_rows(tbl_stop, tbl_stopover)
+  if (length(which(brd[[i]]$class=='stopover'))>0){
+    all_stopovers[[i]] <- rbind(tbl_stop, tbl_stopover)} else {
+      all_stopovers[[i]] <- tbl_stop}
+  all_stopovers[[i]] <- rbind(tbl_stop, tbl_stopover)
   all_stopovers[[i]] <- all_stopovers[[i]] %>% arrange(end_time)
-  
-  #print(i) completes 118 total birds
+  write.csv(all_stopovers[[i]], file=paste0("intermediate_stopover_data_export\\stopovers_", brd[[i]]$ID[1], '.csv'))
+  print(i) #completes 118 total birds
 }
 
 # Combine all into a data frame
@@ -244,9 +246,11 @@ for (i in 1:length(brd)){
 # duration is in hours
 fall_stopover_data <- bind_rows(all_stopovers)
 fall_stopover_data <- fall_stopover_data %>% rename(duration_hours = duration)
+#saveRDS(fall_stopover_data, file='fall_stopover_NOT_FOR_PLOT_111723.rds')
 
 
 # ********************* 05 Reclassify Admin Units ****************************** -----
+
 
 nj <- st_read(dsn='nj_hunting_zones', layer='nj_hunting_zones_revised')
 qc <- st_read(dsn='quebec_hunting_zones', layer='quebec_hunting_zones_5070')
@@ -376,7 +380,7 @@ fall_stopovers <- fall_stopovers %>%
 
 #sub <- fall_stopovers[which(is.na(fall_stopovers$yday_open)==F),] # subset of only places we had hunting informationf for
 
-saveRDS(fall_stopovers, file='fall_stopover_plot_data_100623.rds')
+saveRDS(fall_stopovers, file='fall_stopover_plot_data_112023.rds')
 saveRDS(zone_dates_revised, file='amwo_zone_dates_revised_111523.rds')
 
 # ************************ 06 Add plot ***************************************** -----
